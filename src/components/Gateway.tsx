@@ -30,7 +30,7 @@ export function Gateway({ children }: { children: ReactNode }) {
   const gateRef = useRef<HTMLDivElement>(null)
   const seamRef = useRef<HTMLDivElement>(null)
   const stRef = useRef<ScrollTrigger | null>(null)
-  const [active] = useState(() => !isVercelScreenshot && !reducedMotion())
+  const [active] = useState(() => !isVercelScreenshot && !reducedMotion() && !location.hash.startsWith('#/letter/'))
   const markup = useMemo(
     () =>
       gatewaySvg
