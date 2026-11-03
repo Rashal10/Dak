@@ -110,7 +110,7 @@ export const Explorer = forwardRef<HTMLElement>(function Explorer(_, ref) {
           <img
             src={asset('assets/illustrations/mandala-marigold.svg')}
             alt=""
-            className="absolute right-0 top-1/2 aspect-square h-[min(92vh,90vw)] max-w-none -translate-y-1/2 translate-x-[46%] opacity-40"
+            className="absolute right-0 top-1/2 aspect-square h-[min(92vh,90vw)] max-w-none -translate-y-1/2 translate-x-[46%] opacity-80 brightness-0 invert"
           />
         </div>
       </div>
