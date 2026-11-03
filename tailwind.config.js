@@ -20,6 +20,7 @@ export default {
         sans: ['"Hanken Grotesk"', 'system-ui', 'sans-serif'],
         mono: ['"IBM Plex Mono"', 'ui-monospace', 'monospace'],
         deva: ['"Tiro Devanagari Hindi"', '"Noto Serif Devanagari"', 'serif'],
+        letter: ['Kalam', '"Tiro Devanagari Hindi"', 'cursive'],
       },
       boxShadow: {
         paper: '0 1px 1px rgba(60,35,20,.08), 0 6px 14px -6px rgba(60,35,20,.28)',
