@@ -4,7 +4,7 @@ import { ArrowDown } from 'lucide-react'
 import { stampById } from '../data/stamps'
 import { StampCard } from './StampCard'
 import { asset } from '../lib/asset'
-import { GATE_OPEN_EVENT } from './Gateway'
+import { GATE_OPEN_EVENT, isVercelScreenshot } from '../lib/entrance'
 
 const PLACES: {
   id: string
@@ -28,6 +28,7 @@ export function Hero({ onExplore }: { onExplore: () => void }) {
   const root = useRef<HTMLElement>(null)
 
   useLayoutEffect(() => {
+    if (isVercelScreenshot) return
     const mm = gsap.matchMedia()
     mm.add(
       '(prefers-reduced-motion: no-preference)',

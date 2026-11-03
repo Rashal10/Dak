@@ -9,6 +9,7 @@ import { useToast } from '../lib/toast'
 
 const byYear = [...stamps].sort((a, b) => a.issueYear - b.issueYear || a.title.localeCompare(b.title))
 const finePointer = typeof window !== 'undefined' && window.matchMedia('(hover: hover) and (pointer: fine)').matches
+let openViews = 0
 const SPRING = { type: 'spring', stiffness: 190, damping: 26 } as const
 
 const fmtDate = (iso: string) =>
@@ -88,12 +89,14 @@ export function StampDetail({ stamp, onClose }: Props) {
 
   useEffect(() => {
     const returnTo = opener.returnFocus
-    const sw = window.innerWidth - document.documentElement.clientWidth
-    const prevOverflow = document.body.style.overflow
-    document.body.style.overflow = 'hidden'
-    document.body.style.paddingRight = `${sw}px`
+    if (openViews++ === 0) {
+      const sw = window.innerWidth - document.documentElement.clientWidth
+      document.body.style.overflow = 'hidden'
+      document.body.style.paddingRight = `${sw}px`
+    }
     return () => {
-      document.body.style.overflow = prevOverflow
+      if (--openViews > 0) return
+      document.body.style.overflow = ''
       document.body.style.paddingRight = ''
       if (returnTo && document.contains(returnTo)) returnTo.focus({ preventScroll: true })
     }

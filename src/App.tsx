@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { AnimatePresence, MotionConfig } from 'motion/react'
 import { Header } from './components/Header'
 import { Hero } from './components/Hero'
@@ -7,6 +7,7 @@ import { Collections } from './components/Collections'
 import { StampDetail } from './components/StampDetail'
 import { Footer } from './components/Footer'
 import { Gateway } from './components/Gateway'
+import { ErrorBoundary } from './components/ErrorBoundary'
 import { ToastProvider } from './components/Toast'
 import { useToast } from './lib/toast'
 import { stampById } from './data/stamps'
@@ -28,6 +29,12 @@ function Shell() {
   const toast = useToast()
   const explore = useRef<HTMLElement>(null)
   const stamp = route.view === 'stamp' ? stampById.get(route.slug) : undefined
+  const [visit, setVisit] = useState(0)
+  const [wasOpen, setWasOpen] = useState(false)
+  if (!!stamp !== wasOpen) {
+    setWasOpen(!!stamp)
+    if (stamp) setVisit((v) => v + 1)
+  }
 
   useEffect(() => {
     if (route.view === 'stamp' && !stamp) {
@@ -57,15 +64,23 @@ function Shell() {
         Skip to the collection
       </a>
       <Header />
-      <main id="main">
-        <Gateway>
-          <Hero onExplore={toExplore} />
-        </Gateway>
-        <Explorer ref={explore} />
-        <Collections />
-      </main>
-      <Footer />
-      <AnimatePresence>{stamp && <StampDetail key="detail" stamp={stamp} onClose={close} />}</AnimatePresence>
+      <ErrorBoundary>
+        <main id="main">
+          <Gateway>
+            <Hero onExplore={toExplore} />
+          </Gateway>
+          <Explorer ref={explore} />
+          <Collections />
+        </main>
+        <Footer />
+      </ErrorBoundary>
+      <AnimatePresence>
+        {stamp && (
+          <ErrorBoundary key={`detail-${visit}`} fallback={null} onError={() => navigate('#/', true)}>
+            <StampDetail stamp={stamp} onClose={close} />
+          </ErrorBoundary>
+        )}
+      </AnimatePresence>
     </>
   )
 }

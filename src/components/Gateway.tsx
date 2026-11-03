@@ -3,12 +3,11 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { ChevronsDown } from 'lucide-react'
 import { asset } from '../lib/asset'
+import { GATE_OPEN_EVENT, isVercelScreenshot } from '../lib/entrance'
 import gatewaySvg from '../assets/haveli-gateway.svg?raw'
 import titleSvg from '../assets/haveli-title.svg?raw'
 
 gsap.registerPlugin(ScrollTrigger)
-
-export const GATE_OPEN_EVENT = 'dak:gate-open'
 
 ScrollTrigger.config({ ignoreMobileResize: true })
 
@@ -31,7 +30,7 @@ export function Gateway({ children }: { children: ReactNode }) {
   const gateRef = useRef<HTMLDivElement>(null)
   const seamRef = useRef<HTMLDivElement>(null)
   const stRef = useRef<ScrollTrigger | null>(null)
-  const [active] = useState(() => !reducedMotion())
+  const [active] = useState(() => !isVercelScreenshot && !reducedMotion())
   const markup = useMemo(
     () =>
       gatewaySvg

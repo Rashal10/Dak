@@ -4,6 +4,7 @@
 
 @layer base {
   :root {
+    @apply bg-ivory;
     color-scheme: light;
   }
   html {
