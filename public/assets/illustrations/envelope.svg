@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 160">
+<defs>
+<pattern id="airmail" width="24" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+<rect width="24" height="10" fill="#f8efd8"/><rect width="8" height="10" fill="#c8402a"/><rect x="12" width="8" height="10" fill="#26305e"/>
+</pattern>
+<clipPath id="body"><rect x="4" y="4" width="232" height="152" rx="5"/></clipPath>
+</defs>
+<rect x="4" y="6" width="232" height="152" rx="5" fill="#5e1a18" opacity=".18"/>
+<g clip-path="url(#body)">
+<rect x="4" y="4" width="232" height="152" fill="url(#airmail)"/>
+<rect x="13" y="13" width="214" height="134" rx="2" fill="#f8efd8"/>
+<path d="M13 13L120 86L227 13" fill="none" stroke="#d9c79c" stroke-width="2"/>
+</g>
+<rect x="4" y="4" width="232" height="152" rx="5" fill="none" stroke="#5e1a18" stroke-width="1.5" opacity=".5"/>
+<g transform="translate(176 22)">
+<rect width="38" height="46" fill="#f8efd8"/>
+<path d="M0 0h38v46H0z" fill="none" stroke="#f8efd8" stroke-width="4" stroke-dasharray="2.4 2.4"/>
+<rect x="4" y="4" width="30" height="38" fill="#e58a1f"/>
+<circle cx="19" cy="19" r="8" fill="#f0b43c" stroke="#6e1f1c" stroke-width="1.2"/>
+<path d="M19 13c3 3 3 7 0 11-3-4-3-8 0-11z" fill="#c8402a"/>
+<text x="19" y="38" text-anchor="middle" font-family="'Tiro Devanagari Hindi', serif" font-size="8" fill="#6e1f1c">भारत</text>
+</g>
+<g fill="none" stroke="#9b1b1b" stroke-width="1.6" opacity=".85">
+<circle cx="168" cy="58" r="15"/><circle cx="168" cy="58" r="10.5"/>
+<path d="M118 50c6-4 12 4 18 0s12-4 18 0M118 58c6-4 12 4 18 0s12-4 18 0M118 66c6-4 12 4 18 0s12-4 18 0"/>
+</g>
+<text x="168" y="61" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="7" font-weight="600" fill="#9b1b1b" opacity=".9">DAK</text>
+<g transform="translate(24 24)">
+<rect width="58" height="20" rx="2" fill="#26305e"/>
+<text x="29" y="9" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="6.2" letter-spacing=".6" fill="#f8efd8">BY AIR MAIL</text>
+<text x="29" y="17" text-anchor="middle" font-family="'Tiro Devanagari Hindi', serif" font-size="7" fill="#f0b43c">हवाई डाक</text>
+</g>
+<g stroke="#26305e" stroke-width="1.4" stroke-linecap="round" opacity=".7">
+<path d="M98 102h96"/><path d="M98 116h80"/><path d="M98 130h88"/>
+</g>
+<path d="M100 99c6-6 10 2 16-3s8-1 12-4" fill="none" stroke="#26305e" stroke-width="1.6" stroke-linecap="round"/>
+</svg>
