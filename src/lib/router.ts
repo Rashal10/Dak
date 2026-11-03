@@ -4,7 +4,14 @@ export type Route = { view: 'home' } | { view: 'stamp'; slug: string }
 
 function parse(hash: string): Route {
   const h = hash.replace(/^#\/?/, '')
-  if (h.startsWith('stamp/')) return { view: 'stamp', slug: decodeURIComponent(h.slice(6)) }
+  if (h.startsWith('stamp/')) {
+    const slug = h.slice(6)
+    try {
+      return { view: 'stamp', slug: decodeURIComponent(slug) }
+    } catch {
+      return { view: 'stamp', slug }
+    }
+  }
   return { view: 'home' }
 }
 

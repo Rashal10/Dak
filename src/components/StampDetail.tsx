@@ -1,11 +1,11 @@
-import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { forwardRef, useCallback, useEffect, useId, useLayoutEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion, useAnimate } from 'motion/react'
 import { ChevronLeft, ChevronRight, ExternalLink, Link2, RefreshCcw, Search, X, ZoomIn, ZoomOut } from 'lucide-react'
 import { stamps, THEMES, type Stamp } from '../data/stamps'
 import { StampImage } from './StampImage'
 import { opener, openStamp } from '../lib/opener'
 import { asset } from '../lib/asset'
-import { useToast } from './Toast'
+import { useToast } from '../lib/toast'
 
 const byYear = [...stamps].sort((a, b) => a.issueYear - b.issueYear || a.title.localeCompare(b.title))
 const finePointer = typeof window !== 'undefined' && window.matchMedia('(hover: hover) and (pointer: fine)').matches
@@ -120,7 +120,7 @@ export function StampDetail({ stamp, onClose }: Props) {
     if (flipped) setZoom(false)
   }, [flipped])
 
-    const requestClose = useCallback(async () => {
+  const requestClose = useCallback(async () => {
     if (closing.current) return
     closing.current = true
     dialog.current!.style.pointerEvents = 'none'
@@ -337,7 +337,7 @@ interface CardProps {
   onToggleZoom: () => void
 }
 
-function FlipCard({ stamp, fromCard, flipped, dir, zoom, loupeOn, onToggleZoom }: CardProps) {
+const FlipCard = forwardRef<HTMLDivElement, CardProps>(function FlipCard({ stamp, fromCard, flipped, dir, zoom, loupeOn, onToggleZoom }, ref) {
   const { sw, sh, cw, ch } = useCardSize(stamp)
   const [loupe, setLoupe] = useState<{ x: number; y: number } | null>(null)
   const showLoupe = loupeOn && finePointer && !zoom && !flipped
@@ -345,6 +345,7 @@ function FlipCard({ stamp, fromCard, flipped, dir, zoom, loupeOn, onToggleZoom }
 
   return (
     <motion.div
+      ref={ref}
       className="pointer-events-auto relative"
       style={{ width: cw, height: ch, perspective: 1800 }}
       initial={fromCard && !arrivedByArrow ? false : { opacity: 0, x: dir * 120, y: dir ? 0 : -90, rotateX: dir ? 0 : 35, rotateZ: dir ? dir * 6 : -8, scale: 0.85 }}
@@ -356,11 +357,11 @@ function FlipCard({ stamp, fromCard, flipped, dir, zoom, loupeOn, onToggleZoom }
         <motion.img
           src={asset('assets/illustrations/lotus-rosette.svg')}
           alt=""
-          className="max-w-none"
+          className="stamp-rosette max-w-none"
           style={{ width: Math.max(cw, ch) * 1.45 }}
           initial={{ scale: 0.6, opacity: 0 }}
-          animate={{ scale: 1, opacity: 0.16, rotate: 360 }}
-          transition={{ scale: { duration: 0.9 }, opacity: { duration: 0.9 }, rotate: { duration: 140, repeat: Infinity, ease: 'linear' } }}
+          animate={{ scale: 1, opacity: 0.16 }}
+          transition={{ duration: 0.9 }}
         />
       </div>
       <motion.div
@@ -434,7 +435,7 @@ function FlipCard({ stamp, fromCard, flipped, dir, zoom, loupeOn, onToggleZoom }
       </motion.div>
     </motion.div>
   )
-}
+})
 
 function BackDetails({ stamp }: { stamp: Stamp }) {
   const num = byYear.findIndex((s) => s.id === stamp.id) + 1
@@ -493,6 +494,7 @@ function BackDetails({ stamp }: { stamp: Stamp }) {
 }
 
 function Postmark({ year, size }: { year: number; size: number }) {
+  const arcId = useId()
   return (
     <motion.svg
       viewBox="0 0 120 120"
@@ -507,9 +509,9 @@ function Postmark({ year, size }: { year: number; size: number }) {
         <circle cx="60" cy="60" r="54" />
         <circle cx="60" cy="60" r="40" strokeWidth="1.6" />
       </g>
-      <path id="pm-arc" d="M60 60 m-47 0 a47 47 0 1 1 94 0" fill="none" />
+      <path id={arcId} d="M60 60 m-47 0 a47 47 0 1 1 94 0" fill="none" />
       <text fontFamily="IBM Plex Mono, monospace" fontSize="10.5" letterSpacing="3" fill="#9b1b1b">
-        <textPath href="#pm-arc" startOffset="50%" textAnchor="middle">
+        <textPath href={`#${arcId}`} startOffset="50%" textAnchor="middle">
           DAK · INDIA · डाक
         </textPath>
       </text>

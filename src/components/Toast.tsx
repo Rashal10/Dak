@@ -1,10 +1,8 @@
-import { createContext, useCallback, useContext, useRef, useState, type ReactNode } from 'react'
+import { useCallback, useRef, useState, type ReactNode } from 'react'
 import { AnimatePresence, motion } from 'motion/react'
+import { ToastContext } from '../lib/toast'
 
 type Toast = { id: number; text: string }
-const Ctx = createContext<(text: string) => void>(() => {})
-
-export const useToast = () => useContext(Ctx)
 
 export function ToastProvider({ children }: { children: ReactNode }) {
   const [toasts, setToasts] = useState<Toast[]>([])
@@ -15,7 +13,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
     window.setTimeout(() => setToasts((t) => t.filter((x) => x.id !== id)), 2600)
   }, [])
   return (
-    <Ctx.Provider value={push}>
+    <ToastContext.Provider value={push}>
       {children}
       <div
         role="status"
@@ -37,6 +35,6 @@ export function ToastProvider({ children }: { children: ReactNode }) {
           ))}
         </AnimatePresence>
       </div>
-    </Ctx.Provider>
+    </ToastContext.Provider>
   )
 }

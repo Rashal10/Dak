@@ -47,8 +47,6 @@ export function Gateway({ children }: { children: ReactNode }) {
       return
     }
     const gate = gateRef.current!
-    if ('scrollRestoration' in history) history.scrollRestoration = 'manual'
-    window.scrollTo(0, 0)
     let announced = false
     const header = () => document.querySelector('header')?.offsetHeight ?? 0
     const ctx = gsap.context(() => {
