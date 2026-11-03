@@ -1,0 +1,704 @@
+import dimensions from './stamp-dimensions.json'
+
+export type Theme =
+  | 'architecture'
+  | 'wildlife'
+  | 'art-craft'
+  | 'science-space'
+  | 'literature'
+  | 'music-dance'
+  | 'people'
+  | 'transport'
+  | 'postal-history'
+
+export const THEMES: { id: Theme; label: string; color: string }[] = [
+  { id: 'architecture', label: 'Architecture', color: '#a3311f' },
+  { id: 'wildlife', label: 'Wildlife & plants', color: '#1f6b47' },
+  { id: 'art-craft', label: 'Art & craft', color: '#c8402a' },
+  { id: 'music-dance', label: 'Music & dance', color: '#e58a1f' },
+  { id: 'literature', label: 'Literature', color: '#26305e' },
+  { id: 'people', label: 'Notable people', color: '#6e1f1c' },
+  { id: 'science-space', label: 'Science & space', color: '#0f6e6e' },
+  { id: 'transport', label: 'Transport', color: '#5b4637' },
+  { id: 'postal-history', label: 'Postal history', color: '#a8874a' },
+]
+
+export interface Stamp {
+  id: string
+  slug: string
+  title: string
+  image: { sm: string; lg: string; width: number; height: number; alt: string }
+  issuingAuthority: string
+  issueYear: number
+  issueDate?: string
+  denomination?: string
+  themes: Theme[]
+  series?: string
+  relatedLocation?: string
+  shortDescription: string
+  historicalContext: string
+  sourceUrls: { label: string; url: string }[]
+  imageCredit: string
+}
+
+const dims = dimensions as Record<string, { w: number; h: number }>
+
+const AUTH = {
+  britishIndia: 'British India (India Post under the Crown)',
+  dominion: 'India Post, Dominion of India',
+  republic: 'India Post, Republic of India',
+} as const
+
+type Raw = Omit<Stamp, 'id' | 'image' | 'imageCredit' | 'sourceUrls'> & {
+  alt: string
+  commons: string
+  colnect?: string
+  license: 'Public domain (PD-India)' | 'GODL-India'
+}
+
+const commonsUrl = (file: string) => `https://commons.wikimedia.org/wiki/File:${file.replace(/ /g, '_')}`
+
+function build(r: Raw): Stamp {
+  const d = dims[r.slug] ?? { w: 400, h: 300 }
+  const { alt, commons, colnect, license, ...rest } = r
+  return {
+    ...rest,
+    id: r.slug,
+    image: {
+      sm: `assets/stamps/${r.slug}-sm.webp`,
+      lg: `assets/stamps/${r.slug}-lg.webp`,
+      width: d.w,
+      height: d.h,
+      alt,
+    },
+    sourceUrls: [
+      { label: 'Wikimedia Commons file page', url: commonsUrl(commons) },
+      ...(colnect ? [{ label: 'Colnect catalogue entry', url: colnect }] : []),
+    ],
+    imageCredit: `Scan via Wikimedia Commons (“${commons}”). ${license}. Stamp issued by India Post / the issuing postal administration.`,
+  }
+}
+
+const raw: Raw[] = [
+  {
+    slug: 'taj-mahal-1949',
+    title: 'Taj Mahal, Agra',
+    alt: 'Teal engraving of the Taj Mahal reflected in water, framed in maroon, inscribed INDIA and 5 Rs.',
+    issuingAuthority: AUTH.dominion,
+    issueYear: 1949,
+    issueDate: '1949-08-15',
+    denomination: '5 rupees',
+    themes: ['architecture'],
+    series: 'Monuments and Temples (1949 definitives)',
+    relatedLocation: 'Agra, Uttar Pradesh',
+    shortDescription: 'The high-value stamp of the first definitive series designed for independent India.',
+    historicalContext:
+      'In 1949 the young Dominion replaced the King George VI definitives with a series of Indian monuments, temples and sculpture, a deliberate statement that the nation’s heritage, not a monarch, would now travel on every letter. The Taj Mahal, built by Shah Jahan in memory of Mumtaz Mahal, took one of the top rupee values.',
+    commons: 'Stamp of India - 1949 - Colnect 371620 - 1 - Taj Mahal Agra.jpeg',
+    colnect: 'https://colnect.com/en/stamps/stamp/371620-Taj_Mahal_Agra-Monuments_and_Temples_1949-1952-India',
+    license: 'Public domain (PD-India)',
+  },
+  {
+    slug: 'qutb-minar-1949',
+    title: 'Qutb Minar, Delhi',
+    alt: 'Tall vertical stamp with the fluted tower of the Qutb Minar in red, value 10 Rs.',
+    issuingAuthority: AUTH.dominion,
+    issueYear: 1949,
+    issueDate: '1949-08-15',
+    denomination: '10 rupees',
+    themes: ['architecture'],
+    series: 'Monuments and Temples (1949 definitives)',
+    relatedLocation: 'Mehrauli, Delhi',
+    shortDescription: 'Delhi’s fluted victory tower, given a tall format to match its height.',
+    historicalContext:
+      'Begun around the turn of the thirteenth century under Qutb-ud-din Aibak and completed by his successors, the Qutb Minar is among the tallest brick minarets in the world. On the 1949 definitives its upright form is one of the few vertical designs in a largely horizontal set.',
+    commons: 'Stamp of India - 1949 - Colnect 371621 - 1 - Qutb Minar Delhi.jpeg',
+    colnect: 'https://colnect.com/en/stamps/stamp/371621-Qutb_Minar_Delhi-Monuments_and_Temples_1949-1952-India',
+    license: 'Public domain (PD-India)',
+  },
+  {
+    slug: 'konark-horse-1949',
+    title: 'Konark Horse',
+    alt: 'Maroon engraving of the great carved war-horse sculpture from the Sun Temple at Konark, labelled 6 Ps.',
+    issuingAuthority: AUTH.dominion,
+    issueYear: 1949,
+    issueDate: '1949-08-15',
+    denomination: '6 pies',
+    themes: ['architecture', 'art-craft'],
+    series: 'Monuments and Temples (1949 definitives)',
+    relatedLocation: 'Konark, Odisha',
+    shortDescription: 'A stone war-horse from the Sun Temple, on one of the series’ smallest values.',
+    historicalContext:
+      'The thirteenth-century Sun Temple at Konark was conceived as the chariot of the sun god Surya, drawn by carved horses. Its colossal free-standing horse sculptures are some of the most celebrated works of Odishan stone carving. Note the bilingual value tablets, English and Devanagari, that became standard on Indian stamps.',
+    commons: 'Stamp of India - 1949 - Colnect 141775 - 1 - Konarak Horse.jpeg',
+    colnect: 'https://colnect.com/en/stamps/stamp/141775-Konarak_Horse-Monuments_and_Temples_1949-1952-India',
+    license: 'Public domain (PD-India)',
+  },
+  {
+    slug: 'victoria-memorial-1935',
+    title: 'Victoria Memorial, Calcutta',
+    alt: 'Green horizontal stamp showing the domed Victoria Memorial beside a portrait of King George V, inscribed Silver Jubilee Commemoration 6 May 1935.',
+    issuingAuthority: AUTH.britishIndia,
+    issueYear: 1935,
+    issueDate: '1935-05-06',
+    denomination: '9 pies',
+    themes: ['architecture', 'postal-history'],
+    series: 'Silver Jubilee of King George V',
+    relatedLocation: 'Kolkata, West Bengal',
+    shortDescription: 'A colonial-era jubilee issue pairing an Indian landmark with the King-Emperor.',
+    historicalContext:
+      'For the 1935 Silver Jubilee of George V, British India issued a set pairing the King’s portrait with Indian buildings. The Victoria Memorial, completed in 1921 in white Makrana marble, stands in what is now Kolkata. These stamps show the visual vocabulary that independent India would soon replace.',
+    commons: 'Stamp of India - 1935 - Colnect 299354 - 1 - Victoria Memorial Calcutta.jpeg',
+    colnect: 'https://colnect.com/en/stamps/stamp/299354-Victoria_Memorial_Calcutta-Silver_Jubilee_of_King_George_V-India',
+    license: 'Public domain (PD-India)',
+  },
+  {
+    slug: 'moti-masjid-bhopal-1938',
+    title: 'Moti Masjid, Bhopal',
+    alt: 'Purple-framed Bhopal State stamp with a green view of the Moti Masjid, the state arms, and the word SERVICE.',
+    issuingAuthority: 'Bhopal State (princely state postal service)',
+    issueYear: 1938,
+    denomination: '2 annas',
+    themes: ['architecture', 'postal-history'],
+    relatedLocation: 'Bhopal, Madhya Pradesh',
+    shortDescription: 'A princely-state stamp: Bhopal’s own post, its own arms, its own mosque.',
+    historicalContext:
+      'Several princely states ran postal services alongside British India. Bhopal, long ruled by a line of Begums, issued stamps bearing the state arms and local monuments. The Moti Masjid (Pearl Mosque) was built in the nineteenth century under Sikandar Begum. The stamp is overprinted SERVICE for official correspondence.',
+    commons: 'Bhopal State Postage Service - 2 annas - 1938 - Moti Masjid.png',
+    license: 'Public domain (PD-India)',
+  },
+
+  {
+    slug: 'ajanta-panel-1949',
+    title: 'Ajanta Panel',
+    alt: 'Deep blue engraving of an elephant among dense foliage, from a carved panel at Ajanta, value 3 Ps.',
+    issuingAuthority: AUTH.dominion,
+    issueYear: 1949,
+    issueDate: '1949-08-15',
+    denomination: '3 pies',
+    themes: ['art-craft', 'architecture'],
+    series: 'Monuments and Temples (1949 definitives)',
+    relatedLocation: 'Ajanta, Maharashtra',
+    shortDescription: 'An elephant in carved foliage, the lowest value of the 1949 series.',
+    historicalContext:
+      'The rock-cut Buddhist caves of Ajanta, created between roughly the second century BCE and the fifth century CE, are famous for their paintings and relief carving. The engraver turned a carved panel into a dense, all-over pattern in a single deep blue.',
+    commons: 'Stamp of India - 1949 - Colnect 141774 - 1 - Ajanta Panel.jpeg',
+    colnect: 'https://colnect.com/en/stamps/stamp/141774-Ajanta_Panel-Monuments_and_Temples_1949-1952-India',
+    license: 'Public domain (PD-India)',
+  },
+  {
+    slug: 'kalamkari-2009',
+    title: 'Kalamkari',
+    alt: 'A densely painted Kalamkari textile with a peacock beneath a flowering tree in ochre and red, value 5.00.',
+    issuingAuthority: AUTH.republic,
+    issueYear: 2009,
+    denomination: '₹5.00',
+    themes: ['art-craft'],
+    series: 'Traditional Indian Textiles',
+    relatedLocation: 'Andhra Pradesh',
+    shortDescription: 'Pen-drawn and block-printed cotton, reproduced in miniature.',
+    historicalContext:
+      'Kalamkari, literally “pen-work”, is a tradition of hand-painted and block-printed cotton associated with Srikalahasti and Machilipatnam in Andhra Pradesh, using natural dyes. It appeared in a 2009 set celebrating India’s regional textiles.',
+    commons: 'Stamp of India - 2009 - Colnect 159966 - Kalamkari.jpeg',
+    colnect: 'https://colnect.com/en/stamps/stamp/159966-Kalamkari-Traditional_Indian_Textiles-India',
+    license: 'GODL-India',
+  },
+  {
+    slug: 'pochampally-ikat-2018',
+    title: 'Pochampally Ikat',
+    alt: 'Red and black Pochampally ikat cloth with repeating motifs beside skeins of yarn, value 5.00.',
+    issuingAuthority: AUTH.republic,
+    issueYear: 2018,
+    denomination: '₹5.00',
+    themes: ['art-craft'],
+    series: 'Traditional Handloom Textiles',
+    relatedLocation: 'Bhoodan Pochampally, Telangana',
+    shortDescription: 'Diamonds that are dyed into the thread before the cloth is woven.',
+    historicalContext:
+      'In ikat, yarns are resist-dyed before weaving, so the pattern emerges as the threads meet on the loom, giving its characteristic soft, feathered edges. Pochampally in Telangana is one of India’s best-known ikat centres.',
+    commons: 'Stamp of India - 2018 - Colnect 802138 - Traditional Handloom Textiles - Pochampally Ikat.jpeg',
+    colnect: 'https://colnect.com/en/stamps/stamp/802138-Traditional_Handloom_Textiles_Pochampally_Ikat-India',
+    license: 'GODL-India',
+  },
+  {
+    slug: 'dhokra-2002',
+    title: 'Dhokra',
+    alt: 'A brass Dhokra cast of a decorated animal with two tall figurines behind it, value 5.00.',
+    issuingAuthority: AUTH.republic,
+    issueYear: 2002,
+    denomination: '₹5.00',
+    themes: ['art-craft'],
+    series: 'Handicrafts of India',
+    shortDescription: 'Lost-wax metal casting, one of India’s oldest metalworking traditions.',
+    historicalContext:
+      'Dhokra is non-ferrous metal casting by the lost-wax technique, practised by artisan communities in eastern and central India, including West Bengal, Odisha, Jharkhand and Chhattisgarh. Each piece needs its own clay-and-wax mould, so no two are identical.',
+    commons: 'Stamp of India - 2002 - Colnect 158280 - Handicrafts of India - Dhokra.jpeg',
+    colnect: 'https://colnect.com/en/stamps/stamp/158280-Handicrafts_of_India_-_Dhokra-Mankind-India',
+    license: 'GODL-India',
+  },
+  {
+    slug: 'khadi-1950',
+    title: 'Spinning Wheel and Cloth',
+    alt: 'Red stamp inscribed REPUBLIC OF INDIA and INAUGURATION JAN 26 1950, showing a charkha spinning wheel, value 12 annas.',
+    issuingAuthority: AUTH.republic,
+    issueYear: 1950,
+    issueDate: '1950-01-26',
+    denomination: '12 annas',
+    themes: ['art-craft', 'postal-history'],
+    series: 'Inauguration of the Republic of India',
+    shortDescription: 'Issued the day India became a republic, with the charkha at its centre.',
+    historicalContext:
+      'On 26 January 1950 the Constitution came into force and India became a republic. Among the commemorative stamps that day was this one featuring the charkha and hand-spun cloth, the emblem of self-reliance that Gandhi had made central to the independence movement.',
+    commons: 'Stamp of India - 1950 - Colnect 141355 - 1 - Spinning wheel and cloth.jpeg',
+    colnect: 'https://colnect.com/en/stamps/stamp/141355-Spinning-wheel_and_cloth-Inauguration_of_Republic_of_India-India',
+    license: 'Public domain (PD-India)',
+  },
+
+  {
+    slug: 'tiger-1963',
+    title: 'Tiger',
+    alt: 'Green-framed stamp of a striding tiger in tall grass, inscribed भारत INDIA and TIGER, value 50 nP.',
+    issuingAuthority: AUTH.republic,
+    issueYear: 1963,
+    denomination: '50 naye paise',
+    themes: ['wildlife'],
+    series: 'Wild Life Preservation',
+    shortDescription: 'The tiger on a 1963 wildlife-preservation stamp, a decade before Project Tiger.',
+    historicalContext:
+      'India’s 1963 wildlife preservation set appeared ten years before Project Tiger was launched in 1973. The tiger was later declared India’s national animal and remains one of the most frequently depicted creatures on Indian stamps.',
+    commons: 'Stamp of India - 1963 - Colnect 238978 - Tiger Panthera tigris.jpeg',
+    colnect: 'https://colnect.com/en/stamps/stamp/238978-Tiger_Panthera_tigris-Wild_Life_Presevation-India',
+    license: 'GODL-India',
+  },
+  {
+    slug: 'peafowl-1973',
+    title: 'Indian Peafowl',
+    alt: 'Vertical stamp of a peacock with its jewelled train, inscribed INDIPEX 73, value Rs 2.',
+    issuingAuthority: AUTH.republic,
+    issueYear: 1973,
+    denomination: '₹2',
+    themes: ['wildlife', 'postal-history'],
+    series: 'INDIPEX ’73 International Philatelic Exhibition',
+    shortDescription: 'The national bird, issued for India’s first international stamp exhibition.',
+    historicalContext:
+      'INDIPEX ’73 in New Delhi was India’s first international philatelic exhibition, and the peacock, declared the national bird in 1963, was a natural emblem for it. Peacock blues and greens run through Indian textiles, jewellery and painting.',
+    commons: 'Stamp of India - 1973 - Colnect 372313 - Common Peacock Pavo cristatus.jpeg',
+    colnect: 'https://colnect.com/en/stamps/stamp/372313-Common_Peacock_Pavo_cristatus-INDIPEX_73_International_Philatelic_Exhibition_2nd_Issue-India',
+    license: 'GODL-India',
+  },
+  {
+    slug: 'oriole-1975',
+    title: 'Black-hooded Oriole',
+    alt: 'A bright yellow black-hooded oriole perched among pale leaves on a lilac ground, value 50.',
+    issuingAuthority: AUTH.republic,
+    issueYear: 1975,
+    denomination: '50 paise',
+    themes: ['wildlife'],
+    series: 'Indian Birds',
+    shortDescription: 'A flash of yellow from the forests and gardens of the subcontinent.',
+    historicalContext:
+      'The black-hooded oriole (Oriolus xanthornus) is a resident bird of South and Southeast Asia, known for its fluting calls. It featured in a 1975 set of Indian birds.',
+    commons: 'Stamp of India - 1975 - Colnect 372795 - Black hooded Oriole Oriolus xanthornus.jpeg',
+    colnect: 'https://colnect.com/en/stamps/stamp/372795-Black-hooded_Oriole_Oriolus_xanthornus-Indian_Birds-India',
+    license: 'GODL-India',
+  },
+  {
+    slug: 'tulsi-1997',
+    title: 'Tulsi',
+    alt: 'A flowering tulsi (holy basil) plant on white, labelled Ocimum sanctum, value 2.00.',
+    issuingAuthority: AUTH.republic,
+    issueYear: 1997,
+    denomination: '₹2.00',
+    themes: ['wildlife'],
+    series: 'Indian Medicinal Plants',
+    shortDescription: 'Holy basil, grown in courtyards and used in household remedies.',
+    historicalContext:
+      'Tulsi (Ocimum tenuiflorum) is grown in many Indian homes, often in a raised courtyard planter, and holds a place in both devotion and traditional medicine. The 1997 medicinal plants set also included haridra (turmeric), sarpagandha and ghritkumari (aloe).',
+    commons: 'Stamp of India - 1997 - Colnect 163631 - Tulsi.jpeg',
+    colnect: 'https://colnect.com/en/stamps/stamp/163631-Tulsi-Indian_Medicinal_Plants-India',
+    license: 'GODL-India',
+  },
+  {
+    slug: 'amaltaas-2000',
+    title: 'Amaltaas',
+    alt: 'Hanging yellow blossoms of the amaltaas tree on green, labelled अमलतास AMALTAAS, value 20.00.',
+    issuingAuthority: AUTH.republic,
+    issueYear: 2000,
+    denomination: '₹20.00',
+    themes: ['wildlife'],
+    series: 'Wildlife Definitives',
+    shortDescription: 'The golden shower tree, in an everyday definitive.',
+    historicalContext:
+      'Amaltaas (Cassia fistula), the golden shower tree, drapes Indian streets in hanging yellow flowers before the monsoon. It is the state flower of Kerala, where its blossoms are part of the Vishu festival.',
+    commons: 'Stamp of India - 2000 - Colnect 161131 - Amaltaas.jpeg',
+    colnect: 'https://colnect.com/en/stamps/stamp/161131-Amaltaas-Wildlife_Definitives-India',
+    license: 'GODL-India',
+  },
+
+  {
+    slug: 'bharatanatyam-1975',
+    title: 'Bharatanatyam',
+    alt: 'A Bharatanatyam dancer in a red costume mid-pose against a dark ground, value 25.',
+    issuingAuthority: AUTH.republic,
+    issueYear: 1975,
+    denomination: '25 paise',
+    themes: ['music-dance'],
+    series: 'Indian Traditional Dances',
+    relatedLocation: 'Tamil Nadu',
+    shortDescription: 'Geometry and gesture from Tamil Nadu’s classical dance.',
+    historicalContext:
+      'Bharatanatyam developed in the temples and courts of Tamil Nadu and was reshaped for the concert stage in the twentieth century. This 1975 set of six dances (with Kathak, Kathakali, Kuchipudi, Manipuri and Odissi) reads almost like a map of Indian classical dance.',
+    commons: 'Stamp of India - 1975 - Colnect 372808 - Bharata Natyam.jpeg',
+    colnect: 'https://colnect.com/en/stamps/stamp/372808-Bharata_Natyam-Indian_Traditional_Dances-India',
+    license: 'GODL-India',
+  },
+  {
+    slug: 'kathakali-1975',
+    title: 'Kathakali',
+    alt: 'Two Kathakali performers in towering headdresses and full white skirts, value 1.00.',
+    issuingAuthority: AUTH.republic,
+    issueYear: 1975,
+    denomination: '₹1.00',
+    themes: ['music-dance'],
+    series: 'Indian Traditional Dances',
+    relatedLocation: 'Kerala',
+    shortDescription: 'Kerala’s dance-drama, its painted faces among India’s most recognisable images.',
+    historicalContext:
+      'Kathakali is a dance-drama from Kerala that tells stories from the epics through codified hand gestures, facial expression and elaborate costume. The colour of the make-up signals a character’s nature: green for noble heroes.',
+    commons: 'Stamp of India - 1975 - Colnect 372811 - Kathakali.jpeg',
+    colnect: 'https://colnect.com/en/stamps/stamp/372811-Kathakali-Indian_Traditional_Dances-India',
+    license: 'GODL-India',
+  },
+  {
+    slug: 'manipuri-1975',
+    title: 'Manipuri',
+    alt: 'Two Manipuri dancers, one in a stiff cylindrical embroidered skirt, value 2.00.',
+    issuingAuthority: AUTH.republic,
+    issueYear: 1975,
+    denomination: '₹2.00',
+    themes: ['music-dance'],
+    series: 'Indian Traditional Dances',
+    relatedLocation: 'Manipur',
+    shortDescription: 'Gentle, rounded movement from the northeast.',
+    historicalContext:
+      'Manipuri dance, from Manipur in northeastern India, is known for soft, flowing movement and its distinctive barrel-shaped skirts. Much of its repertoire centres on the Ras Lila of Radha and Krishna.',
+    commons: 'Stamp of India - 1975 - Colnect 372813 - Manipuri.jpeg',
+    colnect: 'https://colnect.com/en/stamps/stamp/372813-Manipuri-Indian_Traditional_Dances-India',
+    license: 'GODL-India',
+  },
+  {
+    slug: 'veena-1998',
+    title: 'Rudra Veena',
+    alt: 'Stamp showing a rudra veena, a long tubular stick zither resting on two large round gourds, inscribed RUDRA VEENA.',
+    issuingAuthority: AUTH.republic,
+    issueYear: 1998,
+    denomination: '₹2.00',
+    themes: ['music-dance'],
+    series: 'Indian Musical Instruments',
+    shortDescription: 'The deep-voiced stick zither of the dhrupad tradition.',
+    historicalContext:
+      'The rudra veena is an ancient plucked instrument of Hindustani music: a long hollow tube with frets, mounted on two large gourd resonators. Its low, sustained tone is closely tied to dhrupad, the oldest surviving form of North Indian classical music. It was part of a 1998 set of Indian musical instruments that also included the sarod.',
+    commons: 'Stamp of India - 1998 - Colnect 161896 - Veena.jpeg',
+    colnect: 'https://colnect.com/en/stamps/stamp/161896-Veena-Indian_Musical_Instruments-India',
+    license: 'GODL-India',
+  },
+  {
+    slug: 'tyagaraja-1961',
+    title: 'Tyagaraja',
+    alt: 'Blue portrait stamp of the composer Tyagaraja seated with a stringed instrument, value 15 nP.',
+    issuingAuthority: AUTH.republic,
+    issueYear: 1961,
+    issueDate: '1961-01-06',
+    denomination: '15 naye paise',
+    themes: ['music-dance', 'people'],
+    relatedLocation: 'Thiruvaiyaru, Tamil Nadu',
+    shortDescription: 'One of the great composers of Carnatic music.',
+    historicalContext:
+      'Tyagaraja (1767–1847) composed devotional kritis in Telugu that remain the backbone of Carnatic concert repertoire. Each year musicians gather at his samadhi in Thiruvaiyaru for the Tyagaraja Aradhana festival.',
+    commons: 'Tyagaraja 1961 stamp of India.jpg',
+    license: 'GODL-India',
+  },
+  {
+    slug: 'ravi-shankar-2016',
+    title: 'Ravi Shankar',
+    alt: 'Single-colour magenta definitive showing Ravi Shankar playing the sitar, value 3.00.',
+    issuingAuthority: AUTH.republic,
+    issueYear: 2016,
+    themes: ['music-dance', 'people'],
+    series: 'Definitive series',
+    shortDescription: 'The sitar maestro who carried Hindustani music to the world, here on an everyday stamp.',
+    historicalContext:
+      'Ravi Shankar (1920–2012) brought Hindustani classical music to international audiences through concerts and collaborations, and received the Bharat Ratna in 1999. Here he appears not on a one-off commemorative but in a definitive series of notable Indians, the kind of stamp that goes on ordinary letters.',
+    commons: 'Stamp of India - 2016 - Colnect 676492 - Ravi Shankar 1920-2012 musician.jpeg',
+    colnect: 'https://colnect.com/en/stamps/stamp/676492-Ravi_Shankar_1920-2012_musician-Creators_of_India-India',
+    license: 'GODL-India',
+  },
+
+  {
+    slug: 'tagore-1952',
+    title: 'Rabindranath Tagore',
+    alt: 'Sepia portrait of Rabindranath Tagore with flowing white beard, dated 1861–1941, value 12 As.',
+    issuingAuthority: AUTH.republic,
+    issueYear: 1952,
+    denomination: '12 annas',
+    themes: ['literature', 'people'],
+    series: 'Indian Saints and Poets',
+    relatedLocation: 'Kolkata and Santiniketan, West Bengal',
+    shortDescription: 'The poet of Gitanjali, in a 1952 set of saints and poets.',
+    historicalContext:
+      'Rabindranath Tagore (1861–1941) became the first non-European Nobel laureate in Literature in 1913 and wrote the songs that became the national anthems of India and Bangladesh. The 1952 series placed him alongside earlier poet-saints such as Kabir, Tulsidas, Meera, Surdas and Ghalib.',
+    commons: 'Stamp of India - 1952 - Colnect 238975 - 1 - Tagore.jpeg',
+    colnect: 'https://colnect.com/en/stamps/stamp/238975-Tagore-Indian_Saints_and_Poets-India',
+    license: 'Public domain (PD-India)',
+  },
+  {
+    slug: 'ghalib-1969',
+    title: 'Mirza Ghalib',
+    alt: 'Portrait of Mirza Ghalib in a tall cap beside lines of Urdu handwriting, inscribed GHALIB, value 20.',
+    issuingAuthority: AUTH.republic,
+    issueYear: 1969,
+    issueDate: '1969-02-17',
+    denomination: '20 paise',
+    themes: ['literature', 'people'],
+    relatedLocation: 'Delhi',
+    shortDescription: 'The Urdu and Persian poet, on his death centenary.',
+    historicalContext:
+      'Mirza Asadullah Khan Ghalib (1797–1869) lived through the last years of the Mughal court in Delhi and the upheaval of 1857. His wry, intimate and philosophical ghazals are still quoted and sung across South Asia. This stamp marked the centenary of his death.',
+    commons: 'Mirza Ghalib 1969 stamp of India.jpg',
+    license: 'GODL-India',
+  },
+  {
+    slug: 'bharati-1960',
+    title: 'Subramania Bharati',
+    alt: 'Blue portrait of Subramania Bharati in a white turban, dated 1882–1921, value 15 nP.',
+    issuingAuthority: AUTH.republic,
+    issueYear: 1960,
+    issueDate: '1960-09-11',
+    denomination: '15 naye paise',
+    themes: ['literature', 'people'],
+    relatedLocation: 'Tamil Nadu',
+    shortDescription: 'The Tamil poet whose verse fused nationalism and social reform.',
+    historicalContext:
+      'Subramania Bharati (1882–1921) transformed modern Tamil poetry and wrote fiercely for Indian independence, women’s equality and against caste discrimination. His turban and moustache have become an instantly recognisable image in Tamil Nadu.',
+    commons: 'Subramanya Bharathi 1960 stamp of India.jpg',
+    license: 'GODL-India',
+  },
+  {
+    slug: 'meghaduta-1960',
+    title: 'Meghaduta: the Cloud Messenger',
+    alt: 'Grey stamp of the yaksha reaching up to a monsoon cloud above a dark forest, value 15 nP.',
+    issuingAuthority: AUTH.republic,
+    issueYear: 1960,
+    denomination: '15 naye paise',
+    themes: ['literature', 'art-craft'],
+    series: 'Kalidasa Commemoration',
+    shortDescription: 'A poem about sending a message by cloud, on a stamp.',
+    historicalContext:
+      'In Kalidasa’s classical Sanskrit poem Meghaduta, an exiled yaksha asks a passing monsoon cloud to carry a message to his beloved, describing the landscapes it will cross on the way. A fitting subject for the post: India issued it in a 1960 pair honouring Kalidasa, with a scene from Shakuntala.',
+    commons: 'Stamp of India - 1960 - Colnect 141770 - 1 - Yaksha pleading with the cloud from the - Meghaduta.jpeg',
+    colnect: 'https://colnect.com/en/stamps/stamp/141770-Yaksha_pleading_with_the_cloud_from_the_Meghaduta-Kalidasa_Commemoration-India',
+    license: 'Public domain (PD-India)',
+  },
+  {
+    slug: 'pather-panchali-1994',
+    title: 'Pather Panchali',
+    alt: 'Black-and-white film still from Pather Panchali beside a strip of film, inscribed Satyajit Ray 1921–1992, value 6.00.',
+    issuingAuthority: AUTH.republic,
+    issueYear: 1994,
+    denomination: '₹6.00',
+    themes: ['literature', 'art-craft'],
+    series: 'Satyajit Ray, Film Director',
+    relatedLocation: 'Bengal',
+    shortDescription: 'Ray’s first film, adapted from Bibhutibhushan Bandyopadhyay’s novel.',
+    historicalContext:
+      'Satyajit Ray’s Pather Panchali (1955) adapted Bibhutibhushan Bandyopadhyay’s Bengali novel about the childhood of Apu and Durga in a rural village. It announced a new Indian cinema to the world. India Post honoured Ray in 1994, two years after his death.',
+    commons: 'Stamp of India - 1994 - Colnect 163806 - Scene from Pather Panchali.jpeg',
+    colnect: 'https://colnect.com/en/stamps/stamp/163806-Scene_from_Pather_Panchali-Satyajit_Ray_Film_Director-India',
+    license: 'GODL-India',
+  },
+
+  {
+    slug: 'gandhi-1948',
+    title: 'Mahatma Gandhi',
+    alt: 'Sepia portrait of Mahatma Gandhi, inscribed with बापू and his dates 2 Oct 1869 – 30 Jan 1948, value 1½ annas.',
+    issuingAuthority: AUTH.dominion,
+    issueYear: 1948,
+    issueDate: '1948-08-15',
+    denomination: '1½ annas',
+    themes: ['people', 'postal-history'],
+    series: 'First Anniversary of Independence: Gandhi Mourning Issue',
+    shortDescription: 'Independent India’s tribute to Gandhi, months after his assassination.',
+    historicalContext:
+      'Released on the first anniversary of independence, this set mourned Gandhi, who had been assassinated on 30 January 1948. The word “Bapu” appears in Devanagari and Urdu scripts at the top. Its source records that it was printed by Courvoisier in Switzerland, unlike most Indian stamps of the era printed at Nasik.',
+    commons: 'Stamp of India - 1948 - Colnect 141344 - Mahatma Gandhi.jpeg',
+    colnect: 'https://colnect.com/en/stamps/stamp/141344-Mahatma_Gandhi-First_Anniversary_of_Independence_Gandhi_Mourning_Issue-India',
+    license: 'Public domain (PD-India)',
+  },
+
+  {
+    slug: 'cv-raman-1971',
+    title: 'C. V. Raman',
+    alt: 'Portrait of C. V. Raman with his signature and a spectral diagram in red, dated 1888–1970, value 20 p.',
+    issuingAuthority: AUTH.republic,
+    issueYear: 1971,
+    issueDate: '1971-11-21',
+    denomination: '20 paise',
+    themes: ['science-space', 'people'],
+    shortDescription: 'The physicist who showed how light changes as it scatters.',
+    historicalContext:
+      'C. V. Raman (1888–1970) discovered the scattering effect that bears his name and received the 1930 Nobel Prize in Physics, the first Asian to win a Nobel in the sciences. India marks National Science Day on 28 February, the date of his discovery. This stamp appeared on the first anniversary of his death.',
+    commons: 'CV Raman 1971 stamp of India.jpg',
+    license: 'GODL-India',
+  },
+  {
+    slug: 'homi-bhabha-1966',
+    title: 'Homi Jehangir Bhabha',
+    alt: 'Purple stamp with Homi Bhabha in profile beside a domed reactor building, inscribed Atomic Energy & Research, value 15 p.',
+    issuingAuthority: AUTH.republic,
+    issueYear: 1966,
+    issueDate: '1966-08-04',
+    denomination: '15 paise',
+    themes: ['science-space', 'people'],
+    relatedLocation: 'Trombay, Mumbai',
+    shortDescription: 'Architect of India’s nuclear research programme.',
+    historicalContext:
+      'Homi J. Bhabha (1909–1966) founded the Tata Institute of Fundamental Research and led the atomic energy establishment at Trombay, later renamed the Bhabha Atomic Research Centre in his honour. He died in an air crash in January 1966; this stamp followed later that year.',
+    commons: 'Homi Jehangir Bhabha 1966 stamp of India.jpg',
+    license: 'GODL-India',
+  },
+  {
+    slug: 'aryabhata-1975',
+    title: 'Aryabhata Satellite',
+    alt: 'The many-sided Aryabhata satellite above the curve of the Earth in a starry sky, value 25.',
+    issuingAuthority: AUTH.republic,
+    issueYear: 1975,
+    denomination: '25 paise',
+    themes: ['science-space'],
+    shortDescription: 'India’s first satellite, named after a fifth-century astronomer.',
+    historicalContext:
+      'Aryabhata, India’s first satellite, was built by ISRO and launched in 1975 on a Soviet rocket. It took its name from the fifth-century mathematician-astronomer Aryabhata, linking a modern space programme to a long scientific tradition.',
+    commons: 'Stamp of India - 1975 - Colnect 372793 - Aryabhata Satellite.jpeg',
+    colnect: 'https://colnect.com/en/stamps/stamp/372793-Aryabhata_Satellite-Commemorations_1975-India',
+    license: 'GODL-India',
+  },
+  {
+    slug: 'ooty-telescope-1982',
+    title: 'Radio Telescope, Ooty',
+    alt: 'The long latticed radio telescope stretching across a green Nilgiri hillside, inscribed Radio Telescope, Ooty, value 3.05.',
+    issuingAuthority: AUTH.republic,
+    issueYear: 1982,
+    denomination: '₹3.05',
+    themes: ['science-space', 'architecture'],
+    series: 'Festival of India: Science and Technology',
+    relatedLocation: 'Udhagamandalam (Ooty), Tamil Nadu',
+    shortDescription: 'A telescope laid along a Nilgiri slope, parallel to Earth’s axis.',
+    historicalContext:
+      'The Ooty Radio Telescope, built in the late 1960s, is a long cylindrical antenna laid on a hill slope whose incline matches the site’s latitude, letting it track the sky as the Earth rotates. It appeared in a 1982 Festival of India set on science and technology.',
+    commons: 'Stamp of India - 1982 - Colnect 169277 - Radio Telescope Ooty.jpeg',
+    colnect: 'https://colnect.com/en/stamps/stamp/169277-Radio_Telescope_Ooty-Festival_of_India_-_Science_and_Technology-India',
+    license: 'GODL-India',
+  },
+
+  {
+    slug: 'darjeeling-railway-1982',
+    title: 'Darjeeling Himalayan Railway',
+    alt: 'A small blue steam train climbing through hills with snowy peaks behind, inscribed Centenary of Darjeeling Himalayan Railway, value 2.85.',
+    issuingAuthority: AUTH.republic,
+    issueYear: 1982,
+    denomination: '₹2.85',
+    themes: ['transport'],
+    series: 'Centenaries 1982',
+    relatedLocation: 'Darjeeling, West Bengal',
+    shortDescription: 'The “toy train”, on its centenary.',
+    historicalContext:
+      'The narrow-gauge Darjeeling Himalayan Railway climbs from the plains to Darjeeling using loops and zig-zags. This stamp marked its centenary; it was later inscribed as a UNESCO World Heritage Site.',
+    commons: 'Stamp of India - 1982 - Colnect 169306 - Darjeeling Himalayan Railway.jpeg',
+    colnect: 'https://colnect.com/en/stamps/stamp/169306-Darjeeling_Himalayan_Railway-Centenaries_1982-India',
+    license: 'GODL-India',
+  },
+  {
+    slug: 'mail-train-1937',
+    title: 'Mail Train',
+    alt: 'Maroon stamp with a steam mail train and a portrait of King George VI, value 4 As.',
+    issuingAuthority: AUTH.britishIndia,
+    issueYear: 1937,
+    denomination: '4 annas',
+    themes: ['transport', 'postal-history'],
+    series: 'King George VI definitives, 1937–40',
+    shortDescription: 'How the mail moved: one of a set showing the post in transit.',
+    historicalContext:
+      'The 1937 King George VI definitives included a sequence showing how mail travelled across India: by runner, bullock cart, tonga, camel, lorry, train, steamer and aeroplane. Its source records it as printed at the Security Printing Press, Nasik, which had begun printing Indian stamps in the 1920s.',
+    commons: 'Stamp of India - 1937 - Colnect 311825 - 1 - Mail Train.jpeg',
+    colnect: 'https://colnect.com/en/stamps/stamp/311825-Mail_Train-King_George_VI_-_Definitives_1937-40-India',
+    license: 'Public domain (PD-India)',
+  },
+  {
+    slug: 'dak-bullock-cart-nabha-1938',
+    title: 'Dak Bullock Cart, Nabha State',
+    alt: 'Violet stamp showing a covered mail cart pulled by bullocks, with King George VI, overprinted NABHA STATE, value 2 As 6 Ps.',
+    issuingAuthority: 'Nabha State (British India stamp overprinted for a convention state)',
+    issueYear: 1938,
+    denomination: '2 annas 6 pies',
+    themes: ['transport', 'postal-history'],
+    series: 'King George VI definitives (Nabha overprints)',
+    relatedLocation: 'Nabha, Punjab',
+    shortDescription: 'The dak cart, overprinted for one of Punjab’s convention states.',
+    historicalContext:
+      'The dak, or post, once moved by relays of runners and carts. Convention states such as Nabha, Patiala, Jind and Chamba used British Indian stamps overprinted with the state name, valid within their territory. The design is British India’s; the authority is Nabha’s.',
+    commons: 'Stamp of Nabha - 1938 - Colnect 616913 - Dak Bullock Cart.jpeg',
+    colnect: 'https://colnect.com/en/stamps/stamp/616913-Dak_Bullock_Cart-King_George_VI_Definitives-Nabha',
+    license: 'Public domain (PD-India)',
+  },
+  {
+    slug: 'mail-transport-1954',
+    title: 'Mail Transport, 1954',
+    alt: 'Brown stamp with an aeroplane, steamer, train and postman on a bicycle, inscribed 1854–1954, value 4 As.',
+    issuingAuthority: AUTH.republic,
+    issueYear: 1954,
+    denomination: '4 annas',
+    themes: ['postal-history', 'transport'],
+    series: 'Centenary of India’s Postage Stamps',
+    shortDescription: 'A hundred years of Indian stamps, celebrated by the post itself.',
+    historicalContext:
+      'In 1954 India marked the centenary of its first all-India postage stamps of 1854. The commemorative set showed the post’s modern network of air, sea, rail and road, in contrast with the runners and carts of a century earlier.',
+    commons: 'Stamp of India - 1954 - Colnect 371629 - 1 - Mail transport 1954.jpeg',
+    colnect: 'https://colnect.com/en/stamps/stamp/371629-Mail_transport_1954-Centenary_of_Indias_Postage_Stamps-India',
+    license: 'Public domain (PD-India)',
+  },
+  {
+    slug: 'dawk-gharry-1989',
+    title: 'Travellers’ Coach and Post Office',
+    alt: 'Stamp showing a horse-drawn coach drawn up beside a thatched post office, inscribed Travellers’ Coach and Post Office, value 1.50.',
+    issuingAuthority: AUTH.republic,
+    issueYear: 1989,
+    denomination: '₹1.50',
+    themes: ['postal-history', 'transport'],
+    series: 'India-89 International Stamp Exhibition',
+    shortDescription: 'The horse-drawn dak coach, catalogued as the “Dawk Gharry, 1842”.',
+    historicalContext:
+      'The dawk (dak) gharry was a horse-drawn carriage that carried mail and passengers in relays along the trunk roads of nineteenth-century India, changing horses at staging posts. Catalogues list this design as “Dawk Gharry 1842”; it was issued for the India-89 World Philatelic Exhibition in New Delhi.',
+    commons: 'Stamp of India - 1989 - Colnect 165289 - Dawk Gharry 1842.jpeg',
+    colnect: 'https://colnect.com/en/stamps/stamp/165289-Dawk_Gharry_1842-India_89_International_Stamp_Exhibition_5th_Issue-India',
+    license: 'GODL-India',
+  },
+  {
+    slug: 'punjabi-postman-1977',
+    title: 'Early Punjabi Postman',
+    alt: 'A postman in an orange tunic and turban with a shoulder bag, inscribed INPEX-77 Early Postman, value 25.',
+    issuingAuthority: AUTH.republic,
+    issueYear: 1977,
+    denomination: '25 paise',
+    themes: ['postal-history', 'people'],
+    series: 'INPEX ’77 Philatelic Exhibition',
+    relatedLocation: 'Punjab',
+    shortDescription: 'The runner who once carried India’s letters on foot.',
+    historicalContext:
+      'Before railways, mail across much of India was carried by dak runners who ran in relays between posts, often carrying a spear hung with bells to warn off animals and announce their approach. This portrait was issued for the INPEX ’77 exhibition.',
+    commons: 'Stamp of India - 1977 - Colnect 327437 - Early Punjabi Postman.jpeg',
+    colnect: 'https://colnect.com/en/stamps/stamp/327437-Early_Punjabi_Postman-INPEX_77_Philatelic_Exhibition-India',
+    license: 'GODL-India',
+  },
+]
+
+export const stamps: Stamp[] = raw.filter((r) => r.slug in dims).map(build)
+export const stampById = new Map(stamps.map((s) => [s.id, s]))
