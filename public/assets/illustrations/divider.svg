@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 23 900 64">
+<defs>
+<g id="paisley"><path d="M10 -20C1 -15-14-5-14 9c0 10 8 17 16 17 10 0 16-8 14-18-2-10-10-14-6-28z" fill="#c8402a" stroke="#6e1f1c" stroke-width="1.5"/><path d="M6 -8C1 -5-6 1-6 9c0 5 3 8 7 8 5 0 7-4 7-9-1-5-5-7-2-15z" fill="none" stroke="#f0b43c" stroke-width="1.6"/><circle cx="1" cy="9" r="2.4" fill="#26305e"/></g>
+<g id="petal"><path d="M0 -10c7 8 7 22 0 34-7-12-7-26 0-34z"/></g>
+<g id="bud"><circle r="4.5" fill="#e58a1f" stroke="#6e1f1c" stroke-width="1.2"/><circle r="1.6" fill="#6e1f1c"/></g>
+<linearGradient id="fadeL" gradientUnits="userSpaceOnUse" x1="20" y1="0" x2="330" y2="0"><stop offset="0" stop-color="#6e1f1c" stop-opacity="0"/><stop offset="1" stop-color="#6e1f1c"/></linearGradient>
+<linearGradient id="fadeR" gradientUnits="userSpaceOnUse" x1="880" y1="0" x2="570" y2="0"><stop offset="0" stop-color="#6e1f1c" stop-opacity="0"/><stop offset="1" stop-color="#6e1f1c"/></linearGradient>
+</defs>
+<g stroke-linecap="round">
+<path d="M20 50H330" stroke="url(#fadeL)" stroke-width="2"/><path d="M60 58H330" stroke="url(#fadeL)" stroke-width="1"/>
+<path d="M570 50H880" stroke="url(#fadeR)" stroke-width="2"/><path d="M570 58H840" stroke="url(#fadeR)" stroke-width="1"/>
+</g>
+<g fill="#0f6e6e"><circle cx="150" cy="54" r="2.4"/><circle cx="215" cy="54" r="2.4"/><circle cx="685" cy="54" r="2.4"/><circle cx="750" cy="54" r="2.4"/></g>
+<use href="#paisley" transform="translate(268 52) rotate(-70) scale(.9)"/>
+<use href="#paisley" transform="translate(632 52) rotate(70) scale(-.9 .9)"/>
+<use href="#bud" x="318" y="53"/><use href="#bud" x="582" y="53"/>
+<path d="M340 54c20-16 40-16 52 0M560 54c-20-16-40-16-52 0" fill="none" stroke="#1f6b47" stroke-width="2"/>
+<path d="M366 44c-8-8-6-16 2-18 4 8 2 14-2 18zM534 44c8-8 6-16-2-18-4 8-2 14 2 18z" fill="#1f6b47"/>
+<g transform="translate(450 55)">
+<g fill="#c8402a" stroke="#6e1f1c" stroke-width="1.2"><use href="#petal" transform="rotate(0) translate(0 -20)"/><use href="#petal" transform="rotate(45) translate(0 -20)"/><use href="#petal" transform="rotate(90) translate(0 -20)"/><use href="#petal" transform="rotate(135) translate(0 -20)"/><use href="#petal" transform="rotate(180) translate(0 -20)"/><use href="#petal" transform="rotate(225) translate(0 -20)"/><use href="#petal" transform="rotate(270) translate(0 -20)"/><use href="#petal" transform="rotate(315) translate(0 -20)"/></g>
+<g fill="#f0b43c" stroke="#a3311f" stroke-width="1"><use href="#petal" transform="rotate(22.5) translate(0 -12) scale(.6)"/><use href="#petal" transform="rotate(67.5) translate(0 -12) scale(.6)"/><use href="#petal" transform="rotate(112.5) translate(0 -12) scale(.6)"/><use href="#petal" transform="rotate(157.5) translate(0 -12) scale(.6)"/><use href="#petal" transform="rotate(202.5) translate(0 -12) scale(.6)"/><use href="#petal" transform="rotate(247.5) translate(0 -12) scale(.6)"/><use href="#petal" transform="rotate(292.5) translate(0 -12) scale(.6)"/><use href="#petal" transform="rotate(337.5) translate(0 -12) scale(.6)"/></g>
+<circle r="12" fill="#0f6e6e" stroke="#0b5252" stroke-width="1.5"/><circle r="7" fill="none" stroke="#f6eedd" stroke-width="1.2" stroke-dasharray="1.6 2"/><circle r="3.5" fill="#f0b43c"/>
+</g>
+</svg>
