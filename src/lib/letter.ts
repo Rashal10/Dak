@@ -71,7 +71,7 @@ export const formatSent = (iso: string) =>
 
 export const isEmail = (s: string) => /^[^\s@<>()[\],;:"]+@[^\s@<>()[\],;:"]+\.[^\s@<>()[\],;:"]{2,}$/.test(s)
 
-export function mailtoFor(to: string, stampTitle: string, stampYear: number, url: string, letter: Letter) {
+export function emailLinksFor(to: string, stampTitle: string, stampYear: number, url: string, letter: Letter) {
   const subject = `A stamp for you from ${letter.from}`
   const body = [
     `Dear ${letter.dear || 'friend'},`,
@@ -82,6 +82,9 @@ export function mailtoFor(to: string, stampTitle: string, stampYear: number, url
     '',
     letter.from,
   ].join('\r\n')
-  const addr = to && isEmail(to) ? encodeURIComponent(to) : ''
-  return `mailto:${addr}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
+  const gmail = new URL('https://mail.google.com/mail/')
+  gmail.search = new URLSearchParams({ view: 'cm', fs: '1', su: subject, body }).toString()
+  if (to) gmail.searchParams.set('to', to)
+  const mailtoQuery = new URLSearchParams({ subject, body }).toString().replace(/\+/g, '%20')
+  return { gmail: gmail.href, mailto: `mailto:${encodeURIComponent(to)}?${mailtoQuery}` }
 }

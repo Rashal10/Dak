@@ -3,7 +3,7 @@ import { motion } from 'motion/react'
 import { Copy, Mail, Send, Share2, X } from 'lucide-react'
 import type { Stamp } from '../data/stamps'
 import { StampImage } from './StampImage'
-import { LETTER_LIMITS, cleanLetter, isEmail, letterUrl, mailtoFor, today } from '../lib/letter'
+import { LETTER_LIMITS, cleanLetter, emailLinksFor, isEmail, letterUrl, today } from '../lib/letter'
 import { useToast } from '../lib/toast'
 
 interface Props {
@@ -48,7 +48,6 @@ export function SendStamp({ stamp, defaultDear = '', onClose }: Props) {
       if (badEmail) toast('That email address doesn’t look right')
       return
     }
-    toast('Your email draft is opening')
   }
 
   const copyLink = async () => {
@@ -70,7 +69,7 @@ export function SendStamp({ stamp, defaultDear = '', onClose }: Props) {
     }
   }
 
-  const mailto = letter && !badEmail ? mailtoFor(to.trim(), stamp.title, stamp.issueYear, url, letter) : undefined
+  const emailLinks = letter && !badEmail ? emailLinksFor(to.trim(), stamp.title, stamp.issueYear, url, letter) : undefined
 
   return (
     <motion.div
@@ -183,8 +182,11 @@ export function SendStamp({ stamp, defaultDear = '', onClose }: Props) {
           </div>
 
           <div className="mt-5 flex flex-wrap items-center gap-2">
-            <a href={mailto ?? '#'} onClick={sendEmail} className="btn-primary" aria-disabled={!mailto || undefined}>
-              <Mail className="h-4 w-4" aria-hidden /> Send by email
+            <a href={emailLinks?.gmail ?? '#'} target="_blank" rel="noreferrer" onClick={sendEmail} className="btn-primary" aria-disabled={!emailLinks || undefined}>
+              <Mail className="h-4 w-4" aria-hidden /> Open in Gmail
+            </a>
+            <a href={emailLinks?.mailto ?? '#'} onClick={sendEmail} className="btn-quiet border-indigo/30" aria-disabled={!emailLinks || undefined}>
+              Use email app
             </a>
             <button type="button" onClick={copyLink} className="btn-quiet border-indigo/30">
               <Copy className="h-4 w-4" aria-hidden /> Copy link
@@ -197,7 +199,7 @@ export function SendStamp({ stamp, defaultDear = '', onClose }: Props) {
           </div>
           <p className="mt-3 flex items-start gap-1.5 text-[12px] leading-snug text-ink-soft">
             <Send className="mt-0.5 h-3.5 w-3.5 shrink-0" aria-hidden />
-            Your note travels inside the link, so anyone who has the link can read it. Nothing is stored on a server, and email opens in your own mail app.
+            Anyone with the link can read your note. DAK keeps it in the link, and your email provider receives it when you open a draft.
           </p>
         </div>
         <button type="button" onClick={onClose} className="icon-btn absolute right-1 top-3 text-ink-soft" aria-label="Close without sending">
