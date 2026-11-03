@@ -68,8 +68,15 @@ export function Gateway({ children }: { children: ReactNode }) {
           start: () => `top ${header()}px`,
           end: '+=170%',
           pin: true,
-          scrub: 0.15,
+          scrub: 0.9,
           anticipatePin: 1,
+          snap: {
+            snapTo: (v: number) => (v < 0.015 || v > 0.985 ? v : (stRef.current?.direction ?? 1) > 0 ? 1 : 0),
+            delay: 0.12,
+            duration: { min: 0.5, max: 1.3 },
+            ease: 'power2.inOut',
+            inertia: false,
+          },
           onUpdate: (self) => {
             if (!announced && self.progress > 0.38) {
               announced = true
@@ -82,11 +89,11 @@ export function Gateway({ children }: { children: ReactNode }) {
       const ir = { immediateRender: false }
       tl.fromTo('.gate-cue', { autoAlpha: 1, y: 0 }, { autoAlpha: 0, y: 20, duration: 0.08, ...ir }, 0)
         .fromTo('.gate-seam', { opacity: 0 }, { opacity: 1, duration: 0.06, ...ir }, 0)
-        .fromTo('.gate-door-l', { scaleX: 1, skewY: 0 }, { scaleX: 0.07, skewY: -9, duration: 0.48, ease: 'power1.in', ...ir }, 0.05)
-        .fromTo('.gate-door-r', { scaleX: 1, skewY: 0 }, { scaleX: 0.07, skewY: 9, duration: 0.48, ease: 'power1.in', ...ir }, 0.05)
+        .fromTo('.gate-door-l', { scaleX: 1, skewY: 0 }, { scaleX: 0.07, skewY: -9, duration: 0.48, ease: 'sine.inOut', ...ir }, 0.05)
+        .fromTo('.gate-door-r', { scaleX: 1, skewY: 0 }, { scaleX: 0.07, skewY: 9, duration: 0.48, ease: 'sine.inOut', ...ir }, 0.05)
         .fromTo('.gate-seam', { opacity: 1 }, { opacity: 0, duration: 0.12, ...ir }, 0.2)
         .fromTo('.gate-title', { autoAlpha: 1 }, { autoAlpha: 0, duration: 0.25, ...ir }, 0.2)
-        .fromTo('.gate-scene', { scale: 1 }, { scale: 7, duration: 0.55, ease: 'power2.in', ...ir }, 0.42)
+        .fromTo('.gate-scene', { scale: 1 }, { scale: 7, duration: 0.55, ease: 'power3.inOut', ...ir }, 0.42)
         .set(gate, { pointerEvents: 'none' }, 0.59)
         .fromTo('.gate-scene', { autoAlpha: 1 }, { autoAlpha: 0, duration: 0.14, ...ir }, 0.84)
         .set(gate, { visibility: 'hidden' }, 0.98)
