@@ -1,11 +1,13 @@
 import { forwardRef, useCallback, useEffect, useId, useLayoutEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion, useAnimate } from 'motion/react'
-import { ChevronLeft, ChevronRight, ExternalLink, Link2, RefreshCcw, Search, X, ZoomIn, ZoomOut } from 'lucide-react'
+import { BookOpen, ChevronLeft, ChevronRight, CornerUpLeft, ExternalLink, Link2, Mail, RefreshCcw, Search, X, ZoomIn, ZoomOut } from 'lucide-react'
 import { stamps, THEMES, type Stamp } from '../data/stamps'
 import { StampImage } from './StampImage'
 import { opener, openStamp } from '../lib/opener'
 import { asset } from '../lib/asset'
 import { useToast } from '../lib/toast'
+import { formatSent, type Letter } from '../lib/letter'
+import { SendStamp } from './SendStamp'
 
 const byYear = [...stamps].sort((a, b) => a.issueYear - b.issueYear || a.title.localeCompare(b.title))
 const finePointer = typeof window !== 'undefined' && window.matchMedia('(hover: hover) and (pointer: fine)').matches
@@ -17,6 +19,7 @@ const fmtDate = (iso: string) =>
 
 interface Props {
   stamp: Stamp
+  letter?: Letter | null
   onClose: () => void
 }
 
@@ -70,7 +73,7 @@ function flightTo(front: HTMLElement, target: HTMLElement) {
   }
 }
 
-export function StampDetail({ stamp, onClose }: Props) {
+export function StampDetail({ stamp, letter = null, onClose }: Props) {
   const dialog = useRef<HTMLDivElement>(null)
   const closeBtn = useRef<HTMLButtonElement>(null)
   const wall = useRef<HTMLDivElement>(null)
@@ -79,11 +82,14 @@ export function StampDetail({ stamp, onClose }: Props) {
   const idx = byYear.findIndex((s) => s.id === stamp.id)
   const prev = byYear[idx - 1]
   const next = byYear[idx + 1]
-  const [fromCard] = useState(() => !!opener.layoutKey)
+  const [fromCard] = useState(() => !letter && !!opener.layoutKey)
   const [dir, setDir] = useState(0)
   const [flipped, setFlipped] = useState(false)
   const [zoom, setZoom] = useState(false)
   const [loupeOn, setLoupeOn] = useState(false)
+  const [composing, setComposing] = useState(false)
+  const [readNote, setReadNote] = useState(false)
+  const sendBtn = useRef<HTMLButtonElement>(null)
   const closing = useRef(false)
   const titleId = 'stamp-detail-title'
 
@@ -120,8 +126,16 @@ export function StampDetail({ stamp, onClose }: Props) {
   }, [stamp.id])
 
   useEffect(() => {
-    if (flipped) setZoom(false)
+    if (flipped) {
+      setZoom(false)
+      setReadNote(true)
+    }
   }, [flipped])
+
+  const closeCompose = () => {
+    setComposing(false)
+    requestAnimationFrame(() => sendBtn.current?.focus({ preventScroll: true }))
+  }
 
   const requestClose = useCallback(async () => {
     if (closing.current) return
@@ -147,7 +161,7 @@ export function StampDetail({ stamp, onClose }: Props) {
   }, [animate, flight, onClose, stamp.slug])
 
   const go = (s: Stamp | undefined, d: number) => {
-    if (!s || closing.current) return
+    if (!s || closing.current || letter) return
     setDir(d)
     openStamp(s.slug, null, opener.returnFocus)
   }
@@ -199,12 +213,13 @@ export function StampDetail({ stamp, onClose }: Props) {
       aria-modal="true"
       aria-labelledby={titleId}
       onKeyDown={onKeyDown}
-      className="fixed inset-0 z-[65] flex flex-col overflow-hidden text-ivory-soft"
+      className="fixed inset-0 z-[65] flex flex-col overflow-hidden text-ivory-soft [overflow:clip]"
       exit={{ opacity: 0, transition: { duration: 0.2 } }}
     >
       <motion.div
         ref={wall}
         aria-hidden
+        inert={composing || undefined}
         className="absolute inset-0 bg-[#0b5252]"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -218,11 +233,17 @@ export function StampDetail({ stamp, onClose }: Props) {
 
       <motion.div
         data-chrome
+        inert={composing || undefined}
         className="relative z-10 flex items-center justify-between gap-2 px-3 pt-4 sm:px-5"
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.15 }}
       >
+        {letter ? (
+          <span className="inline-flex items-center gap-2 rounded-full bg-black/15 px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.18em] text-ivory-soft/85">
+            <Mail className="h-3.5 w-3.5" aria-hidden /> A letter for you
+          </span>
+        ) : (
         <div className="flex items-center gap-1">
           <button type="button" className={`${chromeBtn} md:hidden`} onClick={() => go(prev, -1)} disabled={!prev} aria-label={prev ? `Previous stamp: ${prev.title}` : 'No previous stamp'}>
             <ChevronLeft className="h-5 w-5" aria-hidden />
@@ -234,34 +255,44 @@ export function StampDetail({ stamp, onClose }: Props) {
             <ChevronRight className="h-5 w-5" aria-hidden />
           </button>
         </div>
+        )}
         <div className="flex items-center gap-1">
-          <button type="button" className={chromeBtn} onClick={copyLink} aria-label="Copy link to this stamp">
-            <Link2 className="h-5 w-5" aria-hidden />
-          </button>
+          {!letter && (
+            <button type="button" className={chromeBtn} onClick={copyLink} aria-label="Copy link to this stamp">
+              <Link2 className="h-5 w-5" aria-hidden />
+            </button>
+          )}
           <button ref={closeBtn} type="button" className={chromeBtn} onClick={requestClose} aria-label="Close stamp">
             <X className="h-6 w-6" aria-hidden />
           </button>
         </div>
       </motion.div>
 
-      <div className="pointer-events-none relative z-10 flex min-h-0 flex-1 items-center justify-center gap-3 px-3 sm:gap-8">
-        <NavArrow side="left" target={prev} onGo={() => go(prev, -1)} />
+      <div inert={composing || undefined} className="pointer-events-none relative z-10 flex min-h-0 flex-1 items-center justify-center gap-3 px-3 sm:gap-8">
+        {!letter && <NavArrow side="left" target={prev} onGo={() => go(prev, -1)} />}
+        {letter && <EnvelopeIntro />}
         <div ref={flight} className="relative">
           <AnimatePresence mode="popLayout" initial={false}>
-            <FlipCard key={stamp.id} stamp={stamp} fromCard={fromCard} flipped={flipped} dir={dir} zoom={zoom} loupeOn={loupeOn} onToggleZoom={() => setZoom((z) => !z)} />
+            <FlipCard key={stamp.id} stamp={stamp} letter={letter} fromCard={fromCard} flipped={flipped} dir={dir} zoom={zoom} loupeOn={loupeOn} onToggleZoom={() => setZoom((z) => !z)} />
           </AnimatePresence>
         </div>
-        <NavArrow side="right" target={next} onGo={() => go(next, 1)} />
+        {!letter && <NavArrow side="right" target={next} onGo={() => go(next, 1)} />}
       </div>
 
       <motion.div
         data-chrome
+        inert={composing || undefined}
         className="relative z-20 flex flex-col items-center gap-3 px-3 pb-6 pt-3"
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.2, type: 'spring', stiffness: 260, damping: 26 }}
+        transition={{ delay: letter ? 1.3 : 0.2, type: 'spring', stiffness: 260, damping: 26 }}
       >
         <div className="text-center">
+          {letter && (
+            <p className="mb-0.5 font-letter text-xl leading-tight text-marigold sm:text-2xl">
+              A stamp for you from <span className="font-bold">{letter.from}</span>
+            </p>
+          )}
           <p className="catalog text-marigold/90">
             {stamp.issueYear}
             {stamp.denomination ? ` · ${stamp.denomination}` : ''}
@@ -274,6 +305,8 @@ export function StampDetail({ stamp, onClose }: Props) {
           <motion.button
             type="button"
             whileTap={{ scale: 0.94 }}
+            animate={letter && !readNote ? { scale: [1, 1.07, 1] } : { scale: 1 }}
+            transition={letter && !readNote ? { duration: 0.9, repeat: 3, repeatDelay: 0.8, delay: 2 } : { duration: 0.2 }}
             className="btn bg-indigo text-ivory-soft hover:bg-indigo-deep"
             aria-pressed={flipped}
             onClick={() => setFlipped((f) => !f)}
@@ -281,8 +314,17 @@ export function StampDetail({ stamp, onClose }: Props) {
             <motion.span animate={{ rotate: flipped ? 180 : 0 }} transition={{ type: 'spring', stiffness: 300, damping: 20 }} className="inline-flex">
               <RefreshCcw className="h-4 w-4" aria-hidden />
             </motion.span>
-            {flipped ? 'Show the front' : 'Turn it over'}
+            {letter ? (flipped ? 'Show the stamp' : 'Read the note') : flipped ? 'Show the front' : 'Turn it over'}
           </motion.button>
+          <button ref={sendBtn} type="button" className="btn-quiet" onClick={() => setComposing(true)}>
+            {letter ? <CornerUpLeft className="h-4 w-4" aria-hidden /> : <Mail className="h-4 w-4" aria-hidden />}
+            {letter ? 'Send one back' : 'Send this stamp'}
+          </button>
+          {letter && (
+            <button type="button" className="btn-quiet" onClick={requestClose}>
+              <BookOpen className="h-4 w-4" aria-hidden /> Browse the collection
+            </button>
+          )}
           <span className="mx-0.5 hidden h-6 w-px bg-ink/15 sm:block" aria-hidden />
           <button
             type="button"
@@ -310,7 +352,32 @@ export function StampDetail({ stamp, onClose }: Props) {
           )}
         </div>
       </motion.div>
+
+      <AnimatePresence>{composing && <SendStamp stamp={stamp} defaultDear={letter?.from ?? ''} onClose={closeCompose} />}</AnimatePresence>
     </motion.div>
+  )
+}
+
+function EnvelopeIntro() {
+  return (
+    <div className="pointer-events-none absolute inset-0 flex items-center justify-center" aria-hidden>
+      <motion.div
+        className="relative w-[min(80vw,380px)]"
+        initial={{ opacity: 0, y: 70, scale: 0.8, rotate: -6 }}
+        animate={{ opacity: [0, 1, 1, 0], y: [70, 0, 0, 240], scale: [0.8, 1, 1, 0.88], rotate: [-6, 0, 0, 5] }}
+        transition={{ duration: 1.8, times: [0, 0.28, 0.55, 1], ease: 'easeInOut' }}
+      >
+        <img src={asset('assets/illustrations/envelope.svg')} alt="" className="block w-full drop-shadow-[0_24px_30px_rgba(0,0,0,.4)]" />
+        <motion.span
+          className="absolute left-1/2 top-[54%] flex h-14 w-14 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-[#8e1b1b] font-deva text-lg text-[#f6d27e] shadow-[0_3px_0_#5e1a18,0_6px_10px_rgba(0,0,0,.35)]"
+          initial={{ scale: 1, opacity: 1 }}
+          animate={{ scale: [1, 1, 1.4], opacity: [1, 1, 0] }}
+          transition={{ duration: 1.1, times: [0, 0.6, 1] }}
+        >
+          डाक
+        </motion.span>
+      </motion.div>
+    </div>
   )
 }
 
@@ -332,6 +399,7 @@ function NavArrow({ side, target, onGo }: { side: 'left' | 'right'; target?: Sta
 
 interface CardProps {
   stamp: Stamp
+  letter: Letter | null
   fromCard: boolean
   flipped: boolean
   dir: number
@@ -340,7 +408,7 @@ interface CardProps {
   onToggleZoom: () => void
 }
 
-const FlipCard = forwardRef<HTMLDivElement, CardProps>(function FlipCard({ stamp, fromCard, flipped, dir, zoom, loupeOn, onToggleZoom }, ref) {
+const FlipCard = forwardRef<HTMLDivElement, CardProps>(function FlipCard({ stamp, letter, fromCard, flipped, dir, zoom, loupeOn, onToggleZoom }, ref) {
   const { sw, sh, cw, ch } = useCardSize(stamp)
   const [loupe, setLoupe] = useState<{ x: number; y: number } | null>(null)
   const showLoupe = loupeOn && finePointer && !zoom && !flipped
@@ -351,10 +419,16 @@ const FlipCard = forwardRef<HTMLDivElement, CardProps>(function FlipCard({ stamp
       ref={ref}
       className="pointer-events-auto relative"
       style={{ width: cw, height: ch, perspective: 1800 }}
-      initial={fromCard && !arrivedByArrow ? false : { opacity: 0, x: dir * 120, y: dir ? 0 : -90, rotateX: dir ? 0 : 35, rotateZ: dir ? dir * 6 : -8, scale: 0.85 }}
+      initial={
+        letter
+          ? { opacity: 0, x: 0, y: 150, rotateX: 0, rotateZ: -8, scale: 0.3 }
+          : fromCard && !arrivedByArrow
+            ? false
+            : { opacity: 0, x: dir * 120, y: dir ? 0 : -90, rotateX: dir ? 0 : 35, rotateZ: dir ? dir * 6 : -8, scale: 0.85 }
+      }
       animate={{ opacity: 1, x: 0, y: 0, rotateX: 0, rotateZ: 0, scale: 1 }}
       exit={{ opacity: 0, x: -dir * 120, rotateZ: -dir * 6, transition: { duration: 0.22 } }}
-      transition={{ type: 'spring', stiffness: 180, damping: 20 }}
+      transition={letter ? { type: 'spring', stiffness: 140, damping: 17, delay: 0.85 } : { type: 'spring', stiffness: 180, damping: 20 }}
     >
       <div data-fade className="pointer-events-none absolute left-1/2 top-1/2 -z-10 -translate-x-1/2 -translate-y-1/2" aria-hidden>
         <motion.img
@@ -419,6 +493,21 @@ const FlipCard = forwardRef<HTMLDivElement, CardProps>(function FlipCard({ stamp
           </div>
         </div>
 
+        {letter ? (
+          <div
+            className="letter-paper absolute inset-0 flex flex-col overflow-hidden rounded-[4px] text-ink shadow-[0_24px_40px_rgba(0,0,0,.45)] [backface-visibility:hidden] [transform:rotateY(180deg)]"
+            aria-hidden={!flipped}
+            inert={!flipped || undefined}
+          >
+            <div className="airmail-edge h-2.5 shrink-0" aria-hidden />
+            <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain">
+              <LetterNote letter={letter} />
+              <div className="mx-5 border-t border-dashed border-indigo/25 sm:mx-7" aria-hidden />
+              <BackDetails stamp={stamp} embedded />
+            </div>
+            <div className="airmail-edge h-2.5 shrink-0" aria-hidden />
+          </div>
+        ) : (
         <div
           className="absolute inset-0 overflow-hidden rounded-[4px] text-ink shadow-[0_24px_40px_rgba(0,0,0,.45)] [backface-visibility:hidden] [transform:rotateY(180deg)]"
           aria-hidden={!flipped}
@@ -435,15 +524,48 @@ const FlipCard = forwardRef<HTMLDivElement, CardProps>(function FlipCard({ stamp
           <div className="strip-madhubani absolute inset-x-0 bottom-0 h-4 opacity-60" aria-hidden />
           <BackDetails stamp={stamp} />
         </div>
+        )}
       </motion.div>
     </motion.div>
   )
 })
 
-function BackDetails({ stamp }: { stamp: Stamp }) {
+function LetterNote({ letter }: { letter: Letter }) {
+  return (
+    <div className="relative px-5 pb-6 pt-4 text-indigo sm:px-8">
+      <div className="flex items-start justify-between gap-3">
+        <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-indigo/65">
+          <span lang="hi" className="font-deva text-[13px] normal-case tracking-normal">
+            अंतर्देशीय पत्र
+          </span>{' '}
+          · Inland letter
+        </p>
+        {letter.sent && <p className="-rotate-2 font-letter text-[15px] text-indigo/80">{formatSent(letter.sent)}</p>}
+      </div>
+      <p className="mt-3 font-letter text-[26px] leading-tight">Dear {letter.dear || 'friend'},</p>
+      <p className="letter-lines mt-1 whitespace-pre-line break-words font-letter text-[19px] leading-[32px]">
+        {letter.note || 'I came across this stamp and thought of you.'}
+      </p>
+      <div className="mt-4 flex items-end justify-end gap-4">
+        <div className="text-right">
+          <p className="font-letter text-base text-indigo/75">From,</p>
+          <p className="-rotate-2 break-words font-letter text-[30px] font-bold leading-none text-oxblood">{letter.from}</p>
+        </div>
+        <span
+          aria-hidden
+          className="flex h-14 w-14 shrink-0 rotate-12 items-center justify-center rounded-full bg-[#8e1b1b] font-deva text-base text-[#f6d27e] shadow-[0_2px_0_#5e1a18,0_5px_8px_rgba(0,0,0,.3)] ring-4 ring-[#8e1b1b]/25"
+        >
+          डाक
+        </span>
+      </div>
+    </div>
+  )
+}
+
+function BackDetails({ stamp, embedded = false }: { stamp: Stamp; embedded?: boolean }) {
   const num = byYear.findIndex((s) => s.id === stamp.id) + 1
   return (
-    <div className="relative h-full overflow-y-auto overscroll-contain px-5 pb-8 pt-9 sm:px-7">
+    <div className={embedded ? 'relative px-5 pb-8 pt-8 sm:px-7' : 'relative h-full overflow-y-auto overscroll-contain px-5 pb-8 pt-9 sm:px-7'}>
       <p className="hand absolute right-4 top-2 -rotate-3 text-sm text-ink-faded">DAK / {String(num).padStart(2, '0')}</p>
       <p className="catalog">
         {stamp.issueYear}
