@@ -28,7 +28,8 @@ function Shell() {
   const route = useRoute()
   const toast = useToast()
   const explore = useRef<HTMLElement>(null)
-  const stamp = route.view === 'stamp' ? stampById.get(route.slug) : undefined
+  const stamp = route.view === 'stamp' || route.view === 'letter' ? stampById.get(route.slug) : undefined
+  const letter = route.view === 'letter' ? route.letter : null
   const [visit, setVisit] = useState(0)
   const [wasOpen, setWasOpen] = useState(false)
   if (!!stamp !== wasOpen) {
@@ -37,17 +38,19 @@ function Shell() {
   }
 
   useEffect(() => {
-    if (route.view === 'stamp' && !stamp) {
+    if ((route.view === 'stamp' || route.view === 'letter') && !stamp) {
       toast('That stamp isn’t in the collection')
       navigate('#/', true)
+    } else if (route.view === 'letter' && !route.letter) {
+      toast('This letter couldn’t be read, but here is the stamp')
     }
   }, [route, stamp, toast])
 
   useEffect(() => {
-    document.title = stamp ? `${stamp.title} (${stamp.issueYear}) · DAK` : 'DAK · India in Miniature'
-  }, [stamp])
+    document.title = letter ? `A stamp from ${letter.from} · DAK` : stamp ? `${stamp.title} (${stamp.issueYear}) · DAK` : 'DAK · India in Miniature'
+  }, [stamp, letter])
 
-  const close = () => navigate(opener.baseHash.startsWith('#/stamp/') ? '#/' : opener.baseHash)
+  const close = () => navigate(route.view === 'letter' || opener.baseHash.startsWith('#/stamp/') ? '#/' : opener.baseHash)
   const toExplore = () => explore.current?.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' })
 
   return (
@@ -77,7 +80,7 @@ function Shell() {
       <AnimatePresence>
         {stamp && (
           <ErrorBoundary key={`detail-${visit}`} fallback={null} onError={() => navigate('#/', true)}>
-            <StampDetail stamp={stamp} onClose={close} />
+            <StampDetail stamp={stamp} letter={letter} onClose={close} />
           </ErrorBoundary>
         )}
       </AnimatePresence>
