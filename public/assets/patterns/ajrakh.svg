@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 80 80">
+<rect width="80" height="80" fill="#1a2046"/>
+<g fill="#a3311f"><path d="M40 16l5 12 12-5-5 12 12 5-12 5 5 12-12-5-5 12-5-12-12 5 5-12-12-5 12-5-5-12 12 5z"/>
+<path d="M0 0h12l-12 12zM80 0v12l-12-12zM0 80v-12l12 12zM80 80h-12l12-12z"/></g>
+<circle cx="40" cy="40" r="8" fill="#1a2046"/><circle cx="40" cy="40" r="5" fill="#f6eedd"/><circle cx="40" cy="40" r="2" fill="#a3311f"/>
+<g fill="#f6eedd"><circle cx="40" cy="9" r="1.6"/><circle cx="40" cy="71" r="1.6"/><circle cx="9" cy="40" r="1.6"/><circle cx="71" cy="40" r="1.6"/>
+<circle cx="18" cy="18" r="1.3"/><circle cx="62" cy="18" r="1.3"/><circle cx="18" cy="62" r="1.3"/><circle cx="62" cy="62" r="1.3"/>
+<circle cx="0" cy="40" r="3"/><circle cx="80" cy="40" r="3"/><circle cx="40" cy="0" r="3"/><circle cx="40" cy="80" r="3"/></g>
+<g fill="none" stroke="#f6eedd" stroke-width=".8" opacity=".55"><path d="M0 20L20 0M60 0l20 20M80 60L60 80M20 80L0 60"/></g>
+</svg>
