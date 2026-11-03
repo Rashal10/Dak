@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="44 38 1352 966" preserveAspectRatio="xMidYMid meet" fill="none" aria-hidden="true" class="gate-svg">
 
-<defs><mask id="doorway-hole" maskUnits="userSpaceOnUse" x="-6000" y="-6000" width="13440" height="13080"><rect x="-6000" y="-6000" width="13440" height="13080" fill="#fff"/><rect x="530" y="349" width="380" height="545" fill="#000"/></mask>
+<defs><clipPath id="doorway-hole"><path clip-rule="evenodd" d="M-6000 -6000H7440V7080H-6000Z M530 349H910V894H530Z"/></clipPath>
  <linearGradient id="wood" x2="1" y2=".15"><stop stop-color="#572c1d"/><stop offset=".34" stop-color="#8a4828"/><stop offset=".63" stop-color="#5c3021"/><stop offset="1" stop-color="#a05b30"/></linearGradient>
  <linearGradient id="plaster" x2="0" y2="1"><stop stop-color="#e4c572"/><stop offset="1" stop-color="#f1dfa7"/></linearGradient>
  <linearGradient id="clay" x2="1" y2="0"><stop stop-color="#94432b"/><stop offset=".46" stop-color="#d77b49"/><stop offset="1" stop-color="#a24b2d"/></linearGradient>
@@ -12,7 +12,7 @@
  <path d="M38 191C88 208 101 170 94 150C63 143 37 162 38 191ZM66 139C33 140 20 116 29 98C57 96 78 116 66 139ZM83 59C107 29 141 33 151 55C132 74 107 78 83 59ZM23 158C-8 149-26 169-20 188C5 190 20 176 23 158Z" fill="#453d30"/>
  </g>
 </defs>
-<g mask="url(#doorway-hole)"><rect x="-6000" y="-6000" width="13440" height="13080" fill="#297d70"/><rect x="-6000" y="-6000" width="13440" height="13080" fill="url(#fleck)"/><image href="__MANDALA_L__" x="-620" y="-30" width="1100" height="1100" opacity=".3"/><image href="__MANDALA_R__" x="960" y="-30" width="1100" height="1100" opacity=".34"/><image href="__MANDALA_R__" x="170" y="-1160" width="1100" height="1100" opacity=".34"/><image href="__MANDALA_L__" x="170" y="1040" width="1100" height="1100" opacity=".3"/></g><g id="gateway-backdrop" mask="url(#doorway-hole)">
+<g clip-path="url(#doorway-hole)"><rect x="-6000" y="-6000" width="13440" height="13080" fill="#297d70"/><rect x="-6000" y="-6000" width="13440" height="13080" fill="url(#fleck)"/><image href="__MANDALA_L__" x="-620" y="-30" width="1100" height="1100" opacity=".3"/><image href="__MANDALA_R__" x="960" y="-30" width="1100" height="1100" opacity=".34"/><image href="__MANDALA_R__" x="170" y="-1160" width="1100" height="1100" opacity=".34"/><image href="__MANDALA_L__" x="170" y="1040" width="1100" height="1100" opacity=".3"/></g><g id="gateway-backdrop" mask="url(#doorway-hole)">
 <rect x="44" y="38" width="1352" height="966" rx="2" fill="#297d70" stroke="#ad7243" stroke-width="20"/>
 <rect x="63" y="57" width="1314" height="928" stroke="#ecd6a0" stroke-width="3"/>
 <rect x="77" y="71" width="1286" height="900" stroke="#9aba8c"/>

@@ -46,6 +46,7 @@ export function Gateway({ children }: { children: ReactNode }) {
       announce()
       return
     }
+    const gate = gateRef.current!
     if ('scrollRestoration' in history) history.scrollRestoration = 'manual'
     window.scrollTo(0, 0)
     let announced = false
@@ -70,29 +71,28 @@ export function Gateway({ children }: { children: ReactNode }) {
           start: () => `top ${header()}px`,
           end: '+=170%',
           pin: true,
-          scrub: true,
+          scrub: 0.15,
           anticipatePin: 1,
           onUpdate: (self) => {
             if (!announced && self.progress > 0.38) {
               announced = true
               announce()
             }
-            gateRef.current!.style.pointerEvents = self.progress > 0.6 ? 'none' : ''
           },
-          onLeave: () => gsap.set(gateRef.current, { autoAlpha: 0 }),
-          onEnterBack: () => gsap.set(gateRef.current, { autoAlpha: 1 }),
         },
       })
       stRef.current = tl.scrollTrigger ?? null
       const ir = { immediateRender: false }
       tl.fromTo('.gate-cue', { autoAlpha: 1, y: 0 }, { autoAlpha: 0, y: 20, duration: 0.08, ...ir }, 0)
         .fromTo('.gate-seam', { opacity: 0 }, { opacity: 1, duration: 0.06, ...ir }, 0)
-        .fromTo('.gate-door-l', { scaleX: 1, skewY: 0, filter: 'brightness(1)' }, { scaleX: 0.07, skewY: -9, filter: 'brightness(0.5)', duration: 0.48, ease: 'power1.in', ...ir }, 0.05)
-        .fromTo('.gate-door-r', { scaleX: 1, skewY: 0, filter: 'brightness(1)' }, { scaleX: 0.07, skewY: 9, filter: 'brightness(0.5)', duration: 0.48, ease: 'power1.in', ...ir }, 0.05)
+        .fromTo('.gate-door-l', { scaleX: 1, skewY: 0 }, { scaleX: 0.07, skewY: -9, duration: 0.48, ease: 'power1.in', ...ir }, 0.05)
+        .fromTo('.gate-door-r', { scaleX: 1, skewY: 0 }, { scaleX: 0.07, skewY: 9, duration: 0.48, ease: 'power1.in', ...ir }, 0.05)
         .fromTo('.gate-seam', { opacity: 1 }, { opacity: 0, duration: 0.12, ...ir }, 0.2)
         .fromTo('.gate-title', { autoAlpha: 1 }, { autoAlpha: 0, duration: 0.25, ...ir }, 0.2)
         .fromTo('.gate-scene', { scale: 1 }, { scale: 7, duration: 0.55, ease: 'power2.in', ...ir }, 0.42)
+        .set(gate, { pointerEvents: 'none' }, 0.59)
         .fromTo('.gate-scene', { autoAlpha: 1 }, { autoAlpha: 0, duration: 0.14, ...ir }, 0.84)
+        .set(gate, { visibility: 'hidden' }, 0.98)
 
       gsap.from('.gate-title > svg', { y: 18, opacity: 0, duration: 0.9, ease: 'power3.out', delay: 0.15 })
 

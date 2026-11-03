@@ -48,7 +48,7 @@ Read denominations off the stamp itself, and give an exact `issueDate` only when
 
 - **Entrance.** The home page opens behind a painted haveli gateway reading "भारत through the
   डाक". Scrolling folds the carved doors back and carries you through the doorway onto the page.
-  The doors follow the scroll position exactly and appear on every visit to the top of the page.
+  The doors ease toward the scroll position and appear on every visit to the top of the page.
 - **Stamp view.** A stamp lifts off its card to the centre of a teal wall and a postmark lands on
   its corner. *Turn it over* (or F) flips it to a back with its catalogue entry, story and sources.
   Closing flies it back down onto its card.
