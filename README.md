@@ -1,7 +1,6 @@
 # DAK · India in Miniature · डाक
 
-A showcase of real Indian postage stamps and the stories behind them: British India, two princely
-states and the Republic, 1935 to 2018.
+A showcase of real Indian postage stamps and the stories behind them.
 
 The site is static. Stamp data lives in a local TypeScript file and every image is in
 `public/assets/`.
