@@ -6,7 +6,7 @@ import { StampImage } from './StampImage'
 import { opener, openStamp } from '../lib/opener'
 import { asset } from '../lib/asset'
 import { useToast } from '../lib/toast'
-import { formatSent, type Letter } from '../lib/letter'
+import { formatSent, stampUrl, type Letter } from '../lib/letter'
 import { SendStamp } from './SendStamp'
 
 const byYear = [...stamps].sort((a, b) => a.issueYear - b.issueYear || a.title.localeCompare(b.title))
@@ -197,7 +197,7 @@ export function StampDetail({ stamp, letter = null, onClose }: Props) {
 
   const copyLink = async () => {
     try {
-      await navigator.clipboard.writeText(location.href)
+      await navigator.clipboard.writeText(stampUrl(stamp.slug))
       toast('Link copied')
     } catch {
       toast('Copy the address bar to share')
