@@ -58,7 +58,11 @@ export function decodeLetter(payload: string): Letter | null {
 
 export const letterHref = (slug: string, letter: Letter) => `#/letter/${encodeURIComponent(slug)}/${encodeLetter(letter)}`
 
-export const letterUrl = (slug: string, letter: Letter) => `${location.origin}${location.pathname}${letterHref(slug, letter)}`
+const previewPage = (folder: 's' | 'l', slug: string) => new URL(`${folder}/${encodeURIComponent(slug)}.html`, `${location.origin}${location.pathname}`).href
+
+export const stampUrl = (slug: string) => `${previewPage('s', slug)}#/stamp/${encodeURIComponent(slug)}`
+
+export const letterUrl = (slug: string, letter: Letter) => `${previewPage('l', slug)}${letterHref(slug, letter)}`
 
 export const today = () => {
   const d = new Date()
