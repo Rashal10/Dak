@@ -23,7 +23,7 @@ the URL hash (`#/stamp/taj-mahal-1949`), so no server rewrites are needed.
 
 | Path | Contents |
 | --- | --- |
-| `src/data/stamps.ts` | The 37 stamp records |
+| `src/data/stamps.ts` | The 50 stamp records |
 | `src/data/collections.ts` | Themed collections and the links between stamps |
 | `src/data/stamp-dimensions.json` | Pixel sizes of the prepared images |
 | `src/assets/haveli-gateway.svg` | The entrance gateway |
@@ -40,6 +40,7 @@ the URL hash (`#/stamp/taj-mahal-1949`), so no server rewrites are needed.
 1. Download a scan with a clear licence (GODL-India or public domain on Wikimedia Commons) into a
    folder, named by slug with no extension, for example `raw/charminar-1931`.
 2. Run `npm run stamps:process -- raw` to write the WebP files and record the dimensions.
+   If a pale stamp loses part of its design with the scan background, rerun it with `STAMP_TOLERANCE=6`.
 3. Add a record to `src/data/stamps.ts` and its source details to `scripts/stamp-sources.json`.
 4. Run `npm run attribution`.
 5. Run `npm run previews` to draw its link preview card and write its share pages. This needs Chrome or Edge.
