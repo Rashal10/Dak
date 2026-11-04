@@ -9,7 +9,8 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "stamps:process": "node scripts/process-stamps.mjs",
-    "attribution": "node scripts/build-attribution.mjs"
+    "attribution": "node scripts/build-attribution.mjs",
+    "previews": "node scripts/build-previews.mjs"
   },
   "dependencies": {
     "gsap": "^3.15.0",
