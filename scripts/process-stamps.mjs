@@ -7,7 +7,7 @@ const outDir = path.resolve('public/assets/stamps')
 const dimsFile = path.resolve('src/data/stamp-dimensions.json')
 const dims = fs.existsSync(dimsFile) ? JSON.parse(fs.readFileSync(dimsFile, 'utf8')) : {}
 
-const TOLERANCE = 34
+const TOLERANCE = Number(process.env.STAMP_TOLERANCE ?? 34)
 
 for (const slug of fs.readdirSync(rawDir).sort()) {
   const buf = fs.readFileSync(path.join(rawDir, slug))
