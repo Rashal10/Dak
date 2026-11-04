@@ -30,6 +30,8 @@ the URL hash (`#/stamp/taj-mahal-1949`), so no server rewrites are needed.
 | `public/assets/stamps/` | Stamp scans: `-sm.webp` thumbnails and `-lg.webp` inspection sizes |
 | `public/assets/patterns`, `illustrations`, `textures` | Decorative SVGs |
 | `public/assets/supplied/` | Artwork supplied by the site owner |
+| `public/assets/og/` | Link preview cards, one per stamp plus `home.jpg` |
+| `public/s/`, `public/l/` | Share pages that give each stamp and letter link its own preview, then open the site |
 | `ATTRIBUTION.md` | Source, creator, licence and credit for every image |
 | `scripts/` | Image preparation, mandala and attribution scripts |
 
@@ -40,6 +42,7 @@ the URL hash (`#/stamp/taj-mahal-1949`), so no server rewrites are needed.
 2. Run `npm run stamps:process -- raw` to write the WebP files and record the dimensions.
 3. Add a record to `src/data/stamps.ts` and its source details to `scripts/stamp-sources.json`.
 4. Run `npm run attribution`.
+5. Run `npm run previews` to draw its link preview card and write its share pages. This needs Chrome or Edge.
 
 Read denominations off the stamp itself, and give an exact `issueDate` only when a source records it.
 
