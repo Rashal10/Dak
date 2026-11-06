@@ -56,6 +56,7 @@ Run these commands from `frontend/`; paths in these steps are relative to that f
 Read denominations off the stamp itself, and give an exact `issueDate` only when a source records it.
 
 ## Details about the stamp
-All the details and references about the stamps are in `Attribution.md` .
+
+Stamp details are stored in `frontend/src/data/stamps.ts`. Image sources, licences, and credits are documented in [ATTRIBUTION.md](ATTRIBUTION.md).
 
 #### Made by Rashal!
