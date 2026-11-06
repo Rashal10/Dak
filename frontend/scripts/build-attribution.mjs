@@ -19,9 +19,11 @@ const esc = (s) => String(s ?? '').replace(/\|/g, '\\|').replace(/\s+/g, ' ').tr
 
 let md = `# Asset attribution
 
-Stamp images in \`public/assets/stamps/\` are scans of real postage stamps from Wikimedia Commons.
+Paths below are relative to \`frontend/public/assets/\` unless they start with \`frontend/\`.
+
+Stamp images in \`frontend/public/assets/stamps/\` are scans of real postage stamps from Wikimedia Commons.
 Each was converted to WebP, cropped to the stamp and had its flat scanner background made
-transparent with \`scripts/process-stamps.mjs\`. The stamp artwork itself was not altered.
+transparent with \`frontend/scripts/process-stamps.mjs\`. The stamp artwork itself was not altered.
 
 Each stamp has a thumbnail (\`<slug>-sm.webp\`, up to 520 px) and an inspection size
 (\`<slug>-lg.webp\`, up to 1200 px).
@@ -67,7 +69,7 @@ These are not historical material.
 | \`patterns/border-madhubani.svg\` | Hatched double-line border inspired by Madhubani painting |
 | \`illustrations/toran.svg\` | Marigold and mango-leaf toran garland |
 | \`illustrations/lotus-rosette.svg\` | Lotus rosette |
-| \`illustrations/mandala-*.svg\` | Full line mandala in four inks, drawn by \`scripts/build-mandala.mjs\` |
+| \`illustrations/mandala-*.svg\` | Full line mandala in four inks, drawn by \`frontend/scripts/build-mandala.mjs\` |
 | \`illustrations/tree-of-life.svg\` | Tree of life inspired by Kalamkari |
 | \`illustrations/madhubani-fish.svg\` | Pair of fish inspired by Madhubani painting |
 | \`illustrations/divider.svg\` | Lotus and paisley section divider |
@@ -84,7 +86,7 @@ them before publishing.
 
 | File | Description |
 | --- | --- |
-| \`src/assets/haveli-gateway.svg\`, \`src/assets/haveli-title.svg\`, \`gateway/door-left.svg\`, \`gateway/door-right.svg\` | Painted haveli gateway with carved doors, used as the entrance. Adapted from \`haveli-entrance.svg\`: split into wall, doors and title layers, doorway cut out, wall extended, title added |
+| \`frontend/src/assets/haveli-gateway.svg\`, \`frontend/src/assets/haveli-title.svg\`, \`gateway/door-left.svg\`, \`gateway/door-right.svg\` | Painted haveli gateway with carved doors, used as the entrance. Adapted from \`haveli-entrance.svg\`: split into wall, doors and title layers, doorway cut out, wall extended, title added |
 | \`supplied/elephant-crest.webp\` | Ornamented elephant head in the footer corner |
 | \`supplied/asian-elephant.webp\` | Illustrated "Asian Elephant" ₹7.00 stamp design. Not matched to a catalogued India Post issue, so it is shown as artwork, not as a collection record |
 
@@ -98,5 +100,5 @@ the SIL Open Font License.
 DAK is an independent, non-commercial project and is not affiliated with or endorsed by India Post.
 `
 
-fs.writeFileSync('ATTRIBUTION.md', md)
+fs.writeFileSync(new URL('../../ATTRIBUTION.md', import.meta.url), md)
 console.log(`ATTRIBUTION.md written (${rows.length} stamps)`)
