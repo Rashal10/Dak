@@ -36,8 +36,7 @@ ${Object.entries(LICENSES)
   .map(([k, v]) => `| ${k} | [${v.name}](${v.url}) | ${v.credit} |`)
   .join('\n')}
 
-The Commons file page is the authoritative record for each image. Check it before reusing an image
-elsewhere.
+The Commons file page is the authoritative record for each image. Check it before reusing an image elsewhere.
 
 ## Stamp images
 
@@ -79,21 +78,9 @@ These are not historical material.
 | \`illustrations/favicon.svg\` | Site icon |
 | \`textures/paper.webp\` | Paper grain texture, pre-rendered from procedural noise |
 
-## Artwork supplied by the site owner
-
-The source, creator and licence of these images were not recorded. Confirm you have the right to use
-them before publishing.
-
-| File | Description |
-| --- | --- |
-| \`frontend/src/assets/haveli-gateway.svg\`, \`frontend/src/assets/haveli-title.svg\`, \`gateway/door-left.svg\`, \`gateway/door-right.svg\` | Painted haveli gateway with carved doors, used as the entrance. Adapted from \`haveli-entrance.svg\`: split into wall, doors and title layers, doorway cut out, wall extended, title added |
-| \`supplied/elephant-crest.webp\` | Ornamented elephant head in the footer corner |
-| \`supplied/asian-elephant.webp\` | Illustrated "Asian Elephant" ₹7.00 stamp design. Not matched to a catalogued India Post issue, so it is shown as artwork, not as a collection record |
-
 ## Fonts
 
-Fraunces, Hanken Grotesk, IBM Plex Mono and Tiro Devanagari Hindi, loaded from Google Fonts under
-the SIL Open Font License.
+Fraunces, Hanken Grotesk, IBM Plex Mono and Tiro Devanagari Hindi, loaded from Google Fonts under the SIL Open Font License.
 
 ## Not affiliated
 
