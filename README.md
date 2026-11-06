@@ -2,8 +2,7 @@
 
 A showcase of real Indian postage stamps and the stories behind them.
 
-The site is static. Stamp data lives in a local TypeScript file and every image is in
-`frontend/public/assets/`.
+The site is static. Stamp data lives in a local TypeScript file and every image is in `frontend/public/assets/`.
 
 ## Run it
 
