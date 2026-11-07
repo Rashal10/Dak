@@ -109,10 +109,6 @@ These are not historical material.
 
 Fraunces, Hanken Grotesk, IBM Plex Mono and Tiro Devanagari Hindi, loaded from Google Fonts under the SIL Open Font License.
 
-## Not affiliated
-
-DAK is an independent, non-commercial project and is not affiliated with or endorsed by India Post.
-
 ## Ragamala paintings
 
 Paintings in `public/assets/ragamala/` were cropped and converted to WebP for the music player.
@@ -130,8 +126,7 @@ Paintings in `public/assets/ragamala/` were cropped and converted to WebP for th
 
 ## Music
 
-The recordings in `public/audio/` are used with the artist's permission and are not covered by this
-project's licences. Do not reuse them elsewhere.
+The recordings in `public/audio/` are used with the artist's permission and are not covered by this project's licences. Do not reuse them elsewhere.
 
 | Local file | Recording | Artists |
 | --- | --- | --- |
@@ -143,3 +138,8 @@ project's licences. Do not reuse them elsewhere.
 | `audio/rama-rama.mp3` | Rama Rama | Rishab Rikhiram Sharma |
 | `audio/mera-satguru-pyaara.mp3` | Mera Satguru Pyaara (Live in Chandigarh) | Rishab Rikhiram Sharma |
 | `audio/the-burning-ghat.mp3` | The Burning Ghat | Rishab Rikhiram Sharma |
+
+
+## Not affiliated
+
+DAK is an independent, non-commercial project and is not affiliated with or endorsed by India Post.
