@@ -207,7 +207,7 @@ body[data-composing] .raga-dock { display: none; }
 .raga-play:hover { transform: scale(1.05); }
 .raga-play:active { transform: scale(.95); }
 .raga-play:disabled { cursor: not-allowed; opacity: .4; }
-.raga-volume { --range-progress: 50%; display: block; width: 100%; height: 22px; margin: 0; appearance: none; -webkit-appearance: none; cursor: pointer; background: transparent; }
+.raga-volume { --range-progress: 50%; display: block; width: 100%; height: 22px; margin: .75rem 0 0; appearance: none; -webkit-appearance: none; cursor: pointer; background: transparent; }
 .raga-volume::-webkit-slider-runnable-track { height: 3px; border-radius: 3px; background: linear-gradient(to right, #f0b43c var(--range-progress), #f4e7c340 var(--range-progress)); }
 .raga-volume::-moz-range-track { height: 3px; border-radius: 3px; background: linear-gradient(to right, #f0b43c var(--range-progress), #f4e7c340 var(--range-progress)); }
 .raga-volume::-webkit-slider-thumb { width: 14px; height: 14px; margin-top: -5.5px; appearance: none; -webkit-appearance: none; border-radius: 50%; background: #f0b43c; box-shadow: 0 0 0 2px #2a130a, 0 0 0 3px #e7c46e; }
@@ -267,12 +267,12 @@ body[data-composing] .raga-dock { display: none; }
   .raga-now { padding: .4rem .25rem .25rem; }
   .raga-now-title { font-size: 21px; }
   .raga-now-status { display: none; }
-  .raga-play { width: 54px; height: 54px; }
+  .raga-play { width: 50px; height: 50px; }
   .raga-controls { padding-top: 0; }
-  .raga-volume { height: 16px; }
+  .raga-volume { height: 16px; margin-top: .6rem; }
   .raga-sheet { margin-top: .2rem; padding: .35rem 1rem .5rem; }
   .raga-sheet-head { margin-bottom: .25rem; }
-  .raga-sheet-stamp { zoom: .78; }
+  .raga-sheet-stamp { zoom: .72; }
 }
 
 @keyframes raga-arrive { from { opacity: 0; transform: translateY(18px); } }
