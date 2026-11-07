@@ -215,7 +215,7 @@ body[data-composing] .raga-dock { display: none; }
 .raga-volume:focus-visible { outline: 2px solid #f0b43c; outline-offset: 2px; }
 
 .raga-sheet { flex: none; margin-top: .35rem; padding: .55rem 1rem .8rem; background: #f3e3bd url('./../../public/assets/textures/paper.webp'); color: #2a1d17; box-shadow: inset 0 3px 8px #2f1c1680; }
-.raga-sheet-head { display: flex; align-items: center; justify-content: space-between; gap: .75rem; margin-bottom: .45rem; font: 500 10px/1.3 'IBM Plex Mono', monospace; letter-spacing: .08em; text-transform: uppercase; color: #6e1f1c; }
+.raga-sheet-head { display: flex; align-items: center; justify-content: flex-end; gap: .75rem; margin-bottom: .45rem; font: 500 10px/1.3 'IBM Plex Mono', monospace; letter-spacing: .08em; text-transform: uppercase; color: #6e1f1c; }
 .raga-sheet-link { display: inline-flex; min-height: 24px; flex: 0 1 auto; align-items: center; gap: .2rem; text-align: right; font: italic 12.5px 'Fraunces', serif; letter-spacing: 0; text-transform: none; color: #6e1f1c; text-decoration: underline; text-underline-offset: 2px; }
 .raga-sheet-row { display: flex; gap: .55rem; overflow: auto hidden; padding: 10px 8px 6px 2px; margin: -6px -.25rem 0; scrollbar-color: #a48741 transparent; scrollbar-width: thin; scroll-behavior: smooth; }
 .raga-sheet-row > li { flex: none; }
