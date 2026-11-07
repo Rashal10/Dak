@@ -220,8 +220,6 @@ export function MusicPlayer({ compact = false }: { compact?: boolean }) {
                             transition={{ type: 'spring', stiffness: 520, damping: 20 }}
                           >
                             <g fill="none" stroke="#9b1b1b"><circle cx="32" cy="32" r="29" strokeWidth="2.5" /><circle cx="32" cy="32" r="20" strokeWidth="1.5" /></g>
-                            <text x="32" y="30" textAnchor="middle" fontFamily="'Tiro Devanagari Hindi', serif" fontSize="15" fill="#9b1b1b">डाक</text>
-                            <text x="32" y="42" textAnchor="middle" fontFamily="'IBM Plex Mono', monospace" fontSize="7.5" fill="#9b1b1b">{String(index + 1).padStart(2, '0')}</text>
                           </motion.svg>
                         )}
                       </AnimatePresence>
