@@ -26,7 +26,7 @@ export const musicTracks: MusicTrack[] = [
     painting: 'assets/ragamala/shankara.webp',
     paintingWidth: 520,
     paintingHeight: 633,
-    paintingCredit: 'Datia (?), Madhya Pradesh, c. 1650. Los Angeles County Museum of Art.',
+    paintingCredit: 'Datia , Madhya Pradesh, c. 1650. Los Angeles County Museum of Art.',
     stampId: 'ravi-shankar-2016',
   },
   {
@@ -92,7 +92,7 @@ export const musicTracks: MusicTrack[] = [
     audioSrc: 'audio/rama-rama.mp3',
     raga: 'Rama and Sita',
     ragaHindi: 'राम सीता',
-    scene: 'Enthroned Rama and Sita receive homage from their monkey and bear allies.',
+    scene: 'Enthroned Rama and Sita receive homage from their monkey and bear allies. JAI SHRI RAM!',
     painting: 'assets/ragamala/rama-rama.webp',
     paintingWidth: 520,
     paintingHeight: 793,
@@ -113,7 +113,7 @@ export const musicTracks: MusicTrack[] = [
     paintingHeight: 700,
     paintingCredit: 'Painting, c. 1830.',
     stampId: 'guru-nanak-1969',
-    collectionNote: 'Guru Nanak sang to Mardana’s rabab; this one is sung to the sitar.',
+    collectionNote: "Guru Nanak sang to Mardana's rabab; this one is sung to the sitar.",
   },
   {
     id: 'the-burning-ghat',
