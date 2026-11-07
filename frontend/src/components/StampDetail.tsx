@@ -1,7 +1,9 @@
 import { forwardRef, useCallback, useEffect, useId, useLayoutEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion, useAnimate } from 'motion/react'
 import { BookOpen, ChevronLeft, ChevronRight, CornerUpLeft, ExternalLink, Link2, Mail, RefreshCcw, Search, X, ZoomIn, ZoomOut } from 'lucide-react'
+import { musicTracks } from '../data/music'
 import { stamps, THEMES, type Stamp } from '../data/stamps'
+import { ListenButton } from './ListenButton'
 import { StampImage } from './StampImage'
 import { opener, openStamp } from '../lib/opener'
 import { asset } from '../lib/asset'
@@ -88,6 +90,7 @@ export function StampDetail({ stamp, letter = null, onClose }: Props) {
   const [zoom, setZoom] = useState(false)
   const [loupeOn, setLoupeOn] = useState(false)
   const [composing, setComposing] = useState(false)
+  const song = musicTracks.find((t) => t.stampId === stamp.slug)
   const [readNote, setReadNote] = useState(false)
   const sendBtn = useRef<HTMLButtonElement>(null)
   const closing = useRef(false)
@@ -300,6 +303,7 @@ export function StampDetail({ stamp, letter = null, onClose }: Props) {
           <h2 id={titleId} className="font-display text-2xl font-semibold leading-tight text-ivory-soft sm:text-3xl">
             {stamp.title}
           </h2>
+          {song && !letter && <ListenButton track={song} className="text-sm text-marigold hover:text-ivory-soft" />}
         </div>
         <div className="flex flex-wrap items-center justify-center gap-1.5 rounded-[28px] bg-ivory/95 p-1.5 text-ink shadow-lift">
           <motion.button
@@ -563,6 +567,7 @@ function LetterNote({ letter }: { letter: Letter }) {
 }
 
 function BackDetails({ stamp, embedded = false }: { stamp: Stamp; embedded?: boolean }) {
+  const song = musicTracks.find((t) => t.stampId === stamp.slug)
   const num = byYear.findIndex((s) => s.id === stamp.id) + 1
   return (
     <div className={embedded ? 'relative px-5 pb-8 pt-8 sm:px-7' : 'relative h-full overflow-y-auto overscroll-contain px-5 pb-8 pt-9 sm:px-7'}>
@@ -588,6 +593,14 @@ function BackDetails({ stamp, embedded = false }: { stamp: Stamp; embedded?: boo
           <>
             <dt className="catalog pt-0.5">Place</dt>
             <dd>{stamp.relatedLocation}</dd>
+          </>
+        )}
+        {song && (
+          <>
+            <dt className="catalog pt-0.5">Song</dt>
+            <dd>
+              {song.title}, {song.detail}
+            </dd>
           </>
         )}
         <dt className="catalog pt-0.5">Themes</dt>
