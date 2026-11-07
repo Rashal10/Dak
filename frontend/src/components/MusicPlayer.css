@@ -1,0 +1,286 @@
+.raga-dock {
+  position: fixed;
+  right: 1rem;
+  bottom: max(1rem, env(safe-area-inset-bottom));
+  z-index: 70;
+  max-width: calc(100% - 2rem);
+}
+.raga-dock[hidden] { display: none; }
+.raga-dock { animation: raga-arrive .6s cubic-bezier(.22,.68,.3,1); }
+.raga-dock[data-open='true'] { right: .75rem; max-width: calc(100% - 1.5rem); }
+.raga-dock[data-compact='true'] { bottom: calc(max(1rem, env(safe-area-inset-bottom)) + 7.5rem); }
+body[data-composing] .raga-dock { display: none; }
+@media (min-width: 640px) {
+  .raga-dock { right: 1.5rem; bottom: 1.5rem; }
+  .raga-dock[data-open='true'] { right: 1.5rem; }
+  .raga-dock[data-compact='true'] { bottom: 1.5rem; }
+}
+
+.raga-pill {
+  display: flex;
+  align-items: center;
+  padding: 3px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #f4d788, #a48741 55%, #e7c46e);
+  box-shadow: 0 14px 28px -10px #2f1c16b0, 0 2px 4px #2f1c1660;
+}
+.raga-pill-open {
+  display: flex;
+  align-items: center;
+  gap: .7rem;
+  min-height: 58px;
+  padding: 4px 1rem 4px 4px;
+  border-radius: 999px;
+  background: repeating-linear-gradient(88deg, #ffffff05 0 2px, transparent 2px 6px), linear-gradient(120deg, #4a2412, #2a130a);
+  color: #fbe7ae;
+}
+.raga-dock[data-compact='true'] .raga-pill-open { padding: 4px; }
+.raga-pill:has(.raga-pill-play) .raga-pill-open { border-radius: 999px 0 0 999px; }
+.raga-pill-open:focus-visible, .raga-pill-play:focus-visible { outline: 2px solid #f0b43c; outline-offset: 2px; }
+.raga-pill-disc {
+  position: relative;
+  display: block;
+  width: 50px;
+  height: 50px;
+  flex: none;
+  overflow: hidden;
+  border-radius: 50%;
+  background: #120a06;
+  box-shadow: 0 0 0 2px #e7c46e, inset 0 0 0 1px #000;
+  animation: raga-spin 5s linear infinite;
+  animation-play-state: paused;
+}
+.raga-pill-disc[data-spinning='true'] { animation-play-state: running; }
+.raga-pill-disc img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; -webkit-mask: radial-gradient(circle, transparent 0 8%, #000 9%); mask: radial-gradient(circle, transparent 0 8%, #000 9%); }
+.raga-pill-text { display: flex; min-width: 0; flex-direction: column; text-align: left; line-height: 1.15; }
+.raga-pill-deva { font: 15px/1.2 'Tiro Devanagari Hindi', serif; color: #f0b43c; }
+.raga-pill-title { max-width: 9.5rem; overflow: hidden; font-size: 13px; font-weight: 600; text-overflow: ellipsis; white-space: nowrap; }
+.raga-pill-bars { display: flex; height: 16px; align-items: flex-end; gap: 2px; }
+.raga-pill-bars i { width: 3px; height: 100%; border-radius: 2px; background: #f0b43c; transform-origin: bottom; animation: raga-bar .9s ease-in-out infinite alternate; }
+.raga-pill-bars i:nth-child(2) { animation-delay: -.5s; }
+.raga-pill-bars i:nth-child(3) { animation-delay: -.25s; }
+.raga-pill-play {
+  display: flex;
+  width: 52px;
+  height: 58px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0 999px 999px 0;
+  margin-left: 1px;
+  background: linear-gradient(120deg, #2a130a, #4a2412);
+  color: #f0b43c;
+}
+.raga-pill-play:hover { color: #fff0bd; }
+
+.raga-panel {
+  --wood: repeating-linear-gradient(91deg, #ffffff06 0 2px, transparent 2px 7px, #00000012 7px 9px, transparent 9px 15px);
+  position: relative;
+  display: flex;
+  width: 400px;
+  max-width: 100%;
+  max-height: calc(100dvh - 1.5rem);
+  flex-direction: column;
+  overflow: hidden auto;
+  overscroll-behavior: contain;
+  border-radius: 14px;
+  background: var(--wood), linear-gradient(160deg, #57290f, #3a1c0d 45%, #240f07);
+  color: #f6eedd;
+  box-shadow: 0 0 0 1px #2f1c16, 0 0 0 4px #c9a557, 0 0 0 5px #2f1c16, 0 34px 70px -18px #000000c0;
+  scrollbar-color: #a48741 transparent;
+  scrollbar-width: thin;
+}
+.raga-toran { height: 34px; flex: none; background-position: 50% 0; }
+.raga-head { display: flex; flex: none; align-items: center; justify-content: space-between; gap: .5rem; padding: .1rem .75rem .35rem 1.1rem; }
+.raga-title { display: flex; align-items: baseline; gap: .6rem; }
+.raga-title-deva { font: 30px/1.15 'Tiro Devanagari Hindi', serif; color: #f0b43c; text-shadow: 0 2px 0 #1a0a05; }
+.raga-title-en { font: italic 15px 'Fraunces', serif; color: #f4e7c3cc; }
+.raga-icon {
+  display: inline-flex;
+  width: 44px;
+  height: 44px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  color: #f4d788;
+  transition: background-color .15s, color .15s;
+}
+.raga-icon:hover { background: #ffffff14; color: #fff0bd; }
+.raga-icon:disabled { cursor: not-allowed; opacity: .35; }
+.raga-icon[data-on='true'] { background: #f0b43c26; color: #f0b43c; box-shadow: inset 0 0 0 1px #f0b43c80; }
+.raga-icon:focus-visible, .raga-play:focus-visible, .raga-sheet-link:focus-visible { outline: 2px solid #f0b43c; outline-offset: 2px; }
+
+.raga-body { display: block; padding: 0 1rem; }
+.raga-miniature { display: none; }
+.raga-deck { min-width: 0; }
+
+.raga-stage {
+  position: relative;
+  isolation: isolate;
+  aspect-ratio: 360 / 270;
+  overflow: hidden;
+  border-radius: 8px;
+  background: #1d6a5f url('./../../public/assets/patterns/ajrakh.svg') 0 0 / 54px 54px;
+  background-blend-mode: soft-light;
+  box-shadow: 0 0 0 2px #a48741, 0 0 0 3px #1a0a05, inset 0 0 26px #0009;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+.raga-niche, .raga-cabinet, .raga-sur, .raga-horn { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.raga-horn { overflow: visible; filter: drop-shadow(2px 5px 3px #0007); }
+.raga-disc-rim {
+  position: absolute;
+  left: calc((136 - 88) / 360 * 100%);
+  top: calc((140 - 88) / 270 * 100%);
+  width: calc(176 / 360 * 100%);
+  aspect-ratio: 1;
+  padding: 3px;
+  border-radius: 50%;
+  background: conic-gradient(from 30deg, #fff0bd, #a48741 18%, #6d5420 36%, #e7c46e 54%, #a48741 72%, #fff0bd);
+  box-shadow: 0 8px 12px #0009;
+}
+.raga-disc {
+  position: relative;
+  display: grid;
+  width: 100%;
+  height: 100%;
+  place-items: center;
+  border-radius: 50%;
+  background: repeating-radial-gradient(circle, #0d0a08 0 1px, #2c2622 1.3px 1.7px, #0b0806 2px 3px);
+  animation: raga-spin 3.6s linear infinite;
+  animation-play-state: paused;
+}
+.raga-disc[data-spinning='true'] { animation-play-state: running; }
+.raga-disc-label {
+  display: grid;
+  width: 56%;
+  aspect-ratio: 1;
+  place-items: center;
+  border-radius: 50%;
+  background: radial-gradient(circle, #f6e7c2 0 62%, #c8402a 63% 66%, #f0b43c 67% 72%, #6e1f1c 73%);
+  box-shadow: 0 0 0 2px #0b0806;
+}
+.raga-disc-stamp { display: block; }
+.raga-disc-gloss {
+  position: absolute;
+  inset: 3px;
+  border-radius: 50%;
+  background: conic-gradient(from -30deg, transparent 0 8%, #fff3cf2b 14%, transparent 22% 56%, #fff3cf1f 64%, transparent 72%);
+  -webkit-mask: radial-gradient(circle, transparent 0 28%, #000 29%);
+  mask: radial-gradient(circle, transparent 0 28%, #000 29%);
+  pointer-events: none;
+}
+.raga-arm { transform-origin: 296px 212px; transition: transform .9s cubic-bezier(.22,.68,.3,1); }
+.raga-bell { transform-origin: 0 0; }
+.raga-stage[data-playing='true'] .raga-bell { animation: raga-breathe 2.4s ease-in-out infinite alternate; }
+.raga-lamp { position: absolute; left: 9%; bottom: 7.4%; width: 7px; height: 7px; border-radius: 50%; background: #5c3a1c; box-shadow: 0 0 0 1px #e7c46e; transition: background-color .3s, box-shadow .3s; }
+.raga-stage[data-playing='true'] .raga-lamp { background: #ffd877; box-shadow: 0 0 0 1px #e7c46e, 0 0 12px #ffc95c; }
+
+.raga-now { padding: .7rem .25rem .35rem; text-align: center; }
+.raga-now-raga { font: 500 10px 'IBM Plex Mono', monospace; letter-spacing: .18em; text-transform: uppercase; color: #f0b43c; }
+.raga-now-title { margin-top: .1rem; font: 600 26px/1.12 'Fraunces', serif; color: #fff7e4; }
+.raga-now-detail { margin-top: .15rem; font-size: 12px; line-height: 1.3; color: #f4e7c3d0; }
+.raga-now-status { min-height: 1rem; margin-top: .15rem; font: italic 12px 'Fraunces', serif; color: #f4e7c3a6; }
+.raga-now-error { color: #ffb29e; }
+
+.raga-sitar { position: relative; margin: 0 .1rem; border-radius: 6px; background: linear-gradient(180deg, #1a0a05, #2f150a 50%, #1a0a05); box-shadow: inset 0 0 0 1px #a4874166, inset 0 2px 8px #000; }
+.raga-sitar:focus-within { outline: 2px solid #f0b43c; outline-offset: 2px; }
+.raga-sitar canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+.raga-sitar input { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; cursor: pointer; opacity: 0; }
+.raga-sitar input:disabled { cursor: default; }
+.raga-times { display: flex; justify-content: space-between; padding: .2rem .15rem 0; font: 10px 'IBM Plex Mono', monospace; color: #f4e7c3b3; }
+
+.raga-controls { display: flex; align-items: center; justify-content: space-between; padding: .25rem 0 0; }
+.raga-play {
+  display: flex;
+  width: 66px;
+  height: 66px;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: radial-gradient(circle at 34% 28%, #fff0bd, #e1b96a 38%, #a48741 70%, #6d5420);
+  color: #2a130a;
+  box-shadow: 0 0 0 3px #2a130a, 0 0 0 4px #e7c46e, 0 8px 16px #0009, inset 0 -3px 5px #6d542099;
+  transition: transform .15s;
+}
+.raga-play:hover { transform: scale(1.05); }
+.raga-play:active { transform: scale(.95); }
+.raga-play:disabled { cursor: not-allowed; opacity: .4; }
+.raga-volume { --range-progress: 50%; display: block; width: 100%; height: 22px; margin: 0; appearance: none; -webkit-appearance: none; cursor: pointer; background: transparent; }
+.raga-volume::-webkit-slider-runnable-track { height: 3px; border-radius: 3px; background: linear-gradient(to right, #f0b43c var(--range-progress), #f4e7c340 var(--range-progress)); }
+.raga-volume::-moz-range-track { height: 3px; border-radius: 3px; background: linear-gradient(to right, #f0b43c var(--range-progress), #f4e7c340 var(--range-progress)); }
+.raga-volume::-webkit-slider-thumb { width: 14px; height: 14px; margin-top: -5.5px; appearance: none; -webkit-appearance: none; border-radius: 50%; background: #f0b43c; box-shadow: 0 0 0 2px #2a130a, 0 0 0 3px #e7c46e; }
+.raga-volume::-moz-range-thumb { width: 14px; height: 14px; border: 0; border-radius: 50%; background: #f0b43c; box-shadow: 0 0 0 2px #2a130a, 0 0 0 3px #e7c46e; }
+.raga-volume:focus-visible { outline: 2px solid #f0b43c; outline-offset: 2px; }
+
+.raga-sheet { flex: none; margin-top: .35rem; padding: .55rem 1rem .8rem; background: #f3e3bd url('./../../public/assets/textures/paper.webp'); color: #2a1d17; box-shadow: inset 0 3px 8px #2f1c1680; }
+.raga-sheet-head { display: flex; align-items: center; justify-content: space-between; gap: .75rem; margin-bottom: .45rem; font: 500 10px/1.3 'IBM Plex Mono', monospace; letter-spacing: .08em; text-transform: uppercase; color: #6e1f1c; }
+.raga-sheet-link { display: inline-flex; min-height: 24px; flex: 0 1 auto; align-items: center; gap: .2rem; text-align: right; font: italic 12.5px 'Fraunces', serif; letter-spacing: 0; text-transform: none; color: #6e1f1c; text-decoration: underline; text-underline-offset: 2px; }
+.raga-sheet-row { display: flex; gap: .55rem; overflow: auto hidden; padding: 10px 8px 6px 2px; margin: -6px -.25rem 0; scrollbar-color: #a48741 transparent; scrollbar-width: thin; scroll-behavior: smooth; }
+.raga-sheet-row > li { flex: none; }
+.raga-sheet-stamp { position: relative; display: block; border-radius: 2px; transition: transform .18s; }
+.raga-sheet-stamp:hover { transform: translateY(-3px) rotate(-1.5deg); }
+.raga-sheet-stamp[data-current='true'] { transform: translateY(-2px) rotate(-1deg); }
+.raga-sheet-stamp:focus-visible { outline: 2px solid #6e1f1c; outline-offset: 3px; }
+.raga-cancel { position: absolute; right: -8px; top: -9px; width: 44px; height: 44px; pointer-events: none; mix-blend-mode: multiply; }
+
+.raga-stamp {
+  position: relative;
+  display: block;
+  padding: var(--perf);
+  background: #fbf4e0;
+  filter: drop-shadow(0 2px 2px #2a130a66);
+}
+.raga-stamp::before { content: ''; position: absolute; inset: 0; background: #fbf4e0; -webkit-mask: radial-gradient(circle, transparent calc(var(--perf) * .3), #000 calc(var(--perf) * .34)) calc(var(--perf) * -.5) calc(var(--perf) * -.5) / var(--perf) var(--perf); mask: radial-gradient(circle, transparent calc(var(--perf) * .3), #000 calc(var(--perf) * .34)) calc(var(--perf) * -.5) calc(var(--perf) * -.5) / var(--perf) var(--perf); }
+.raga-stamp { background: none; }
+.raga-stamp-face { position: relative; display: block; width: 100%; height: 100%; overflow: hidden; box-shadow: 0 0 0 1px #2a130a40; }
+.raga-stamp-face img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 62%; }
+.raga-stamp-india { position: absolute; left: 0; right: 0; bottom: 0; padding-top: 1px; background: #fbf4e0e6; text-align: center; font: 9px/1.25 'Tiro Devanagari Hindi', serif; color: #6e1f1c; }
+
+@media (min-width: 900px) {
+  .raga-panel { width: 800px; }
+  .raga-body { display: grid; grid-template-columns: minmax(0, 1fr) 372px; gap: 1.1rem; align-items: start; }
+  .raga-miniature { display: block; }
+  .raga-frame {
+    position: relative;
+    aspect-ratio: 4 / 5.1;
+    overflow: hidden;
+    padding: 11px;
+    background: #6e1f1c url('./../../public/assets/patterns/ajrakh.svg') 0 0 / 44px 44px;
+    box-shadow: 0 0 0 2px #e7c46e, 0 0 0 3px #1a0a05, 0 12px 20px #0007;
+  }
+  .raga-frame img { width: 100%; height: 100%; object-fit: cover; box-shadow: 0 0 0 2px #1a0a05, 0 0 0 4px #f6e7c2; }
+  .raga-miniature figcaption { display: flex; flex-direction: column; gap: .1rem; padding: .6rem .1rem 0; }
+  .raga-cap-deva { font: 21px/1.2 'Tiro Devanagari Hindi', serif; color: #f0b43c; }
+  .raga-cap-scene { font: italic 14.5px/1.3 'Fraunces', serif; color: #f6eedd; }
+  .raga-cap-credit { margin-top: .15rem; font-size: 11px; line-height: 1.3; color: #f4e7c3b3; }
+  .raga-sheet-row { gap: .9rem; }
+}
+@media (max-height: 820px) and (min-width: 900px) {
+  .raga-panel { width: 740px; }
+  .raga-toran { height: 22px; }
+  .raga-head { padding-top: 0; padding-bottom: .15rem; }
+  .raga-title-deva { font-size: 24px; }
+  .raga-body { grid-template-columns: minmax(0, 1fr) 330px; }
+  .raga-frame { aspect-ratio: 4 / 4.25; padding: 8px; }
+  .raga-now { padding: .4rem .25rem .25rem; }
+  .raga-now-title { font-size: 21px; }
+  .raga-now-status { display: none; }
+  .raga-play { width: 54px; height: 54px; }
+  .raga-controls { padding-top: 0; }
+  .raga-volume { height: 16px; }
+  .raga-sheet { margin-top: .2rem; padding: .35rem 1rem .5rem; }
+  .raga-sheet-head { margin-bottom: .25rem; }
+  .raga-sheet-stamp { zoom: .78; }
+}
+
+@keyframes raga-arrive { from { opacity: 0; transform: translateY(18px); } }
+@keyframes raga-spin { to { transform: rotate(360deg); } }
+@keyframes raga-bar { from { transform: scaleY(.3); } to { transform: scaleY(1); } }
+@keyframes raga-breathe { to { transform: scale(1.03); } }
+@media (prefers-reduced-motion: reduce) {
+  .raga-disc, .raga-pill-disc, .raga-pill-bars i, .raga-stage[data-playing='true'] .raga-bell { animation: none; }
+  .raga-arm { transition: none; }
+  .raga-dock { animation: none; }
+}
