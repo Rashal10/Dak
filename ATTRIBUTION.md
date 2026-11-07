@@ -40,6 +40,8 @@ The Commons file page is the authoritative record for each image. Check it befor
 | `stamps/everest-1953-sm.webp`, `-lg.webp` | [Stamp of India - 1953 - Colnect 371626 - 1 - Mount Everest.jpeg](https://commons.wikimedia.org/wiki/File:Stamp_of_India_-_1953_-_Colnect_371626_-_1_-_Mount_Everest.jpeg) | Post of India | Public domain | India Post or the issuing postal administration (public domain); scan via Wikimedia Commons |
 | `stamps/gandhi-1948-sm.webp`, `-lg.webp` | [Stamp of India - 1948 - Colnect 141344 - Mahatma Gandhi.jpeg](https://commons.wikimedia.org/wiki/File:Stamp_of_India_-_1948_-_Colnect_141344_-_Mahatma_Gandhi.jpeg) | Post of India | Public domain | India Post or the issuing postal administration (public domain); scan via Wikimedia Commons |
 | `stamps/ghalib-1969-sm.webp`, `-lg.webp` | [Mirza Ghalib 1969 stamp of India.jpg](https://commons.wikimedia.org/wiki/File:Mirza_Ghalib_1969_stamp_of_India.jpg) | India Post, Government of India | GODL-India | India Post, Government of India; scan via Wikimedia Commons |
+| `stamps/ghats-varanasi-1983-sm.webp`, `-lg.webp` | [Stamp of India - 1983 - Colnect 168564 - Ghats of Varanasi.jpeg](https://commons.wikimedia.org/wiki/File:Stamp_of_India_-_1983_-_Colnect_168564_-_Ghats_of_Varanasi.jpeg) | Post of India | GODL-India | India Post, Government of India; scan via Wikimedia Commons |
+| `stamps/guru-nanak-1969-sm.webp`, `-lg.webp` | [Stamp of India - 1969 - Colnect 145610 - 500th Birth Anniv of Guru Nanak Dev - Relgious Leader.jpeg](https://commons.wikimedia.org/wiki/File:Stamp_of_India_-_1969_-_Colnect_145610_-_500th_Birth_Anniv_of_Guru_Nanak_Dev_-_Relgious_Leader.jpeg) | Post of India | GODL-India | India Post, Government of India; scan via Wikimedia Commons |
 | `stamps/homi-bhabha-1966-sm.webp`, `-lg.webp` | [Homi Jehangir Bhabha 1966 stamp of India.jpg](https://commons.wikimedia.org/wiki/File:Homi_Jehangir_Bhabha_1966_stamp_of_India.jpg) | India Post, Government of India | GODL-India | India Post, Government of India; scan via Wikimedia Commons |
 | `stamps/india-uk-air-service-1948-sm.webp`, `-lg.webp` | [Stamp of India - 1948 - Colnect 371618 - 1 - Inauguration of India - UK Air Service.jpeg](https://commons.wikimedia.org/wiki/File:Stamp_of_India_-_1948_-_Colnect_371618_-_1_-_Inauguration_of_India_-_UK_Air_Service.jpeg) | Post of India | Public domain | India Post or the issuing postal administration (public domain); scan via Wikimedia Commons |
 | `stamps/kalamkari-2009-sm.webp`, `-lg.webp` | [Stamp of India - 2009 - Colnect 159966 - Kalamkari.jpeg](https://commons.wikimedia.org/wiki/File:Stamp_of_India_-_2009_-_Colnect_159966_-_Kalamkari.jpeg) | Post of India | GODL-India | India Post, Government of India; scan via Wikimedia Commons |
@@ -60,6 +62,7 @@ The Commons file page is the authoritative record for each image. Check it befor
 | `stamps/punjabi-postman-1977-sm.webp`, `-lg.webp` | [Stamp of India - 1977 - Colnect 327437 - Early Punjabi Postman.jpeg](https://commons.wikimedia.org/wiki/File:Stamp_of_India_-_1977_-_Colnect_327437_-_Early_Punjabi_Postman.jpeg) | Post of India | GODL-India | India Post, Government of India; scan via Wikimedia Commons |
 | `stamps/qutb-minar-1949-sm.webp`, `-lg.webp` | [Stamp of India - 1949 - Colnect 371621 - 1 - Qutb Minar Delhi.jpeg](https://commons.wikimedia.org/wiki/File:Stamp_of_India_-_1949_-_Colnect_371621_-_1_-_Qutb_Minar_Delhi.jpeg) | Post of India | Public domain | India Post or the issuing postal administration (public domain); scan via Wikimedia Commons |
 | `stamps/ramanujan-1962-sm.webp`, `-lg.webp` | [Stamp of India - 1962 - Colnect 142031 - 75th Birth Anniversary of Srinivasa Ramanujan - Mathematicia.jpeg](https://commons.wikimedia.org/wiki/File:Stamp_of_India_-_1962_-_Colnect_142031_-_75th_Birth_Anniversary_of_Srinivasa_Ramanujan_-_Mathematicia.jpeg) | Post of India | GODL-India | India Post, Government of India; scan via Wikimedia Commons |
+| `stamps/ramayana-2017-sm.webp`, `-lg.webp` | [Stamp of India - 2017 - Colnect 805306 - The Ramayana.jpeg](https://commons.wikimedia.org/wiki/File:Stamp_of_India_-_2017_-_Colnect_805306_-_The_Ramayana.jpeg) | Post of India | GODL-India | India Post, Government of India; scan via Wikimedia Commons |
 | `stamps/rath-yatra-2010-sm.webp`, `-lg.webp` | [Stamp of India - 2010 - Colnect 259591 - Rath Yatra Puri.jpeg](https://commons.wikimedia.org/wiki/File:Stamp_of_India_-_2010_-_Colnect_259591_-_Rath_Yatra_Puri.jpeg) | Post of India | GODL-India | India Post, Government of India; scan via Wikimedia Commons |
 | `stamps/ravi-shankar-2016-sm.webp`, `-lg.webp` | [Stamp of India - 2016 - Colnect 676492 - Ravi Shankar 1920-2012 musician.jpeg](https://commons.wikimedia.org/wiki/File:Stamp_of_India_-_2016_-_Colnect_676492_-_Ravi_Shankar_1920-2012_musician.jpeg) | Post of India | GODL-India | India Post, Government of India; scan via Wikimedia Commons |
 | `stamps/republic-crowds-1950-sm.webp`, `-lg.webp` | [Stamp of India - 1950 - Colnect 141352 - 1 - Rejoicing crowds.jpeg](https://commons.wikimedia.org/wiki/File:Stamp_of_India_-_1950_-_Colnect_141352_-_1_-_Rejoicing_crowds.jpeg) | Post of India | Public domain | India Post or the issuing postal administration (public domain); scan via Wikimedia Commons |
@@ -109,3 +112,34 @@ Fraunces, Hanken Grotesk, IBM Plex Mono and Tiro Devanagari Hindi, loaded from G
 ## Not affiliated
 
 DAK is an independent, non-commercial project and is not affiliated with or endorsed by India Post.
+
+## Ragamala paintings
+
+Paintings in `public/assets/ragamala/` were cropped and converted to WebP for the music player.
+
+| Local file | Work | Collection | Licence | Source |
+| --- | --- | --- | --- | --- |
+| `ragamala/shankara.webp` | Bhairava Raga, Folio from a Ragamala | Los Angeles County Museum of Art | Public domain | [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Bhairava_Raga,_Folio_from_a_Ragamala_(Garland_of_Melodies)_LACMA_M.71.1.14.jpg) |
+| `ragamala/i-wanted-to-leave.webp` | Todi Ragini, from a Ragamala Series | Cleveland Museum of Art | Public domain | [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Anonymous_-_Todi_Ragini,_from_a_Ragamala_Series_-_2013.340_-_Cleveland_Museum_of_Art.tiff) |
+| `ragamala/tumhi-dekho-naa.webp` | Radha and Krishna in a Palace (Ragamala) | Rijksmuseum | CC0 | [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Radha_en_Krishna_in_een_paleis_(Ragamala),_RP-T-1993-477.jpg) |
+| `ragamala/roslyn.webp` | Madhumadhavi Ragini, Page from a Dispersed Ragamala Series | The Metropolitan Museum of Art | Public domain | [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:2%D0%B0_Madhumadhavai_Ragini_Page_from_a_Dispersed_Ragamala_Series_Marwar_1640-50_Metmuseum..jpg) |
+| `ragamala/tilak-kamod.webp` | Vilaval Ragini, Page from a Dispersed Ragamala Series | The Metropolitan Museum of Art | Public domain | [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Vilaval_Ragini,_Page_from_a_Dispersed_Ragamala_Series_ca_1680_Metmuseum.jpg) |
+| `ragamala/rama-rama.webp` | Enthroned Rama and Sita receive homage from their monkey and bear allies | Cleveland Museum of Art | CC0 | [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Clevelandart_2018.117.jpg) |
+| `ragamala/mera-satguru-pyaara.webp` | Guru Nanak with Mardana and Bala, c. 1830 | Collection not recorded | Public domain | [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Guru_Nanak_With_Mardana_and_Bala,_circa_1830.jpg) |
+| `ragamala/the-burning-ghat.webp` | The Burning Ghats, Benares, by Marianne North, 1878 | See source page | Public domain | [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Marianne_North_(1830-1890)_-_%27The_Burning_Ghats._Benares._India._October_1878%27_-_WD3232_-_British_Library.jpg) |
+
+## Music
+
+The recordings in `public/audio/` are used with the artist's permission and are not covered by this
+project's licences. Do not reuse them elsewhere.
+
+| Local file | Recording | Artists |
+| --- | --- | --- |
+| `audio/shankara.mp3` | Shankara | Rishab Rikhiram Sharma |
+| `audio/i-wanted-to-leave.mp3` | I Wanted to Leave (sitar version) | SYML and Rishab Rikhiram Sharma |
+| `audio/tumhi-dekho-naa.mp3` | Tumhi Dekho Naa (sitar lofi) | Rishab Rikhiram Sharma and Shankar-Ehsaan-Loy |
+| `audio/roslyn.mp3` | Roslyn | Rishab Rikhiram Sharma |
+| `audio/tilak-kamod.mp3` | Tilak Kamod | Rishab Rikhiram Sharma |
+| `audio/rama-rama.mp3` | Rama Rama | Rishab Rikhiram Sharma |
+| `audio/mera-satguru-pyaara.mp3` | Mera Satguru Pyaara (Live in Chandigarh) | Rishab Rikhiram Sharma |
+| `audio/the-burning-ghat.mp3` | The Burning Ghat | Rishab Rikhiram Sharma |
