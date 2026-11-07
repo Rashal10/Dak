@@ -17,7 +17,7 @@ export const collections: EditorialCollection[] = [
     intro:
       'When the Dominion of India designed its first definitives in 1949, it chose stone over sovereigns: temples, tombs and carved panels in place of a king’s profile.',
     accent: '#6e1f1c',
-    stampIds: ['taj-mahal-1949', 'qutb-minar-1949', 'victoria-memorial-1935', 'konark-horse-1949', 'moti-masjid-bhopal-1938', 'ooty-telescope-1982'],
+    stampIds: ['taj-mahal-1949', 'qutb-minar-1949', 'victoria-memorial-1935', 'konark-horse-1949', 'moti-masjid-bhopal-1938', 'ghats-varanasi-1983', 'ooty-telescope-1982'],
     threads: [
       { from: 'victoria-memorial-1935', to: 'taj-mahal-1949', text: 'Fourteen years apart: a king beside a memorial, then a monument with no king at all.' },
       { from: 'moti-masjid-bhopal-1938', to: 'dak-bullock-cart-nabha-1938', text: 'Two princely states in 1938: one printed its own stamps, one overprinted British India’s.' },
@@ -43,7 +43,7 @@ export const collections: EditorialCollection[] = [
     kicker: 'Scientists, writers, reformers & thinkers',
     intro: 'Poets in three languages, two physicists, a mathematician, two pioneers of cinema, the author of a Constitution and a satellite named for an astronomer fifteen centuries dead.',
     accent: '#26305e',
-    stampIds: ['gandhi-1948', 'republic-crowds-1950', 'ambedkar-1973', 'tagore-1952', 'bharati-1960', 'ghalib-1969', 'ramanujan-1962', 'cv-raman-1971', 'homi-bhabha-1966', 'aryabhata-1975', 'dadasaheb-phalke-1971', 'pather-panchali-1994'],
+    stampIds: ['guru-nanak-1969', 'gandhi-1948', 'republic-crowds-1950', 'ambedkar-1973', 'tagore-1952', 'bharati-1960', 'ghalib-1969', 'ramanujan-1962', 'cv-raman-1971', 'homi-bhabha-1966', 'aryabhata-1975', 'dadasaheb-phalke-1971', 'pather-panchali-1994'],
     threads: [
       { from: 'tagore-1952', to: 'pather-panchali-1994', text: 'Bengal’s literature on screen: Ray studied at Tagore’s Santiniketan.' },
       { from: 'cv-raman-1971', to: 'homi-bhabha-1966', text: 'Two founders of modern Indian physics, five years apart on the post.' },
@@ -58,7 +58,7 @@ export const collections: EditorialCollection[] = [
     kicker: 'Music, dance, crafts & textiles',
     intro: 'Hand gestures and handlooms. Dances from Tamil Nadu, Kerala and Manipur sit beside ikat, Kalamkari and lost-wax brass.',
     accent: '#e58a1f',
-    stampIds: ['bharatanatyam-1975', 'kathakali-1975', 'manipuri-1975', 'nataraja-1949', 'tyagaraja-1961', 'veena-1998', 'ravi-shankar-2016', 'kalamkari-2009', 'pochampally-ikat-2018', 'dhokra-2002', 'ajanta-panel-1949', 'rath-yatra-2010'],
+    stampIds: ['bharatanatyam-1975', 'kathakali-1975', 'manipuri-1975', 'nataraja-1949', 'tyagaraja-1961', 'veena-1998', 'ravi-shankar-2016', 'kalamkari-2009', 'pochampally-ikat-2018', 'dhokra-2002', 'ajanta-panel-1949', 'rath-yatra-2010', 'ramayana-2017'],
     threads: [
       { from: 'tyagaraja-1961', to: 'bharatanatyam-1975', text: 'Carnatic music and Bharatanatyam grew up together in Tamil Nadu.' },
       { from: 'khadi-1950', to: 'pochampally-ikat-2018', text: 'From the charkha on Republic Day to handloom ikat, 68 years later.' },
