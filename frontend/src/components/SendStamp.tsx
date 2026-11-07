@@ -26,6 +26,10 @@ export function SendStamp({ stamp, defaultDear = '', onClose }: Props) {
 
   useEffect(() => {
     first.current?.focus({ preventScroll: true })
+    document.body.dataset.composing = 'true'
+    return () => {
+      delete document.body.dataset.composing
+    }
   }, [])
 
   const letter = useMemo(() => cleanLetter({ from, dear, note, sent: today() }), [from, dear, note])
