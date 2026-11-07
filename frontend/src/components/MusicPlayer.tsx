@@ -200,7 +200,7 @@ export function MusicPlayer({ compact = false }: { compact?: boolean }) {
           </div>
 
           <div className="raga-sheet">
-            <p className="raga-sheet-head"><span className="shrink-0">Sheet of {musicTracks.length}</span>{related && <a href={hrefFor.stamp(related.slug)} onClick={minimize} className="raga-sheet-link">In the collection: {related.title} <ArrowUpRight className="h-3 w-3" aria-hidden="true" /></a>}</p>
+            {related && <p className="raga-sheet-head"><a href={hrefFor.stamp(related.slug)} onClick={minimize} className="raga-sheet-link">In the collection: {related.title} <ArrowUpRight className="h-3 w-3" aria-hidden="true" /></a></p>}
             <ol ref={sheet} className="raga-sheet-row" tabIndex={0} aria-label="Songs">
               {musicTracks.map((song, index) => {
                 const current = player.selected === index
