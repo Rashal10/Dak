@@ -4,7 +4,9 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { motion } from 'motion/react'
 import { ArrowRight } from 'lucide-react'
 import { collections, type EditorialCollection } from '../data/collections'
+import { musicTracks } from '../data/music'
 import { stampById, type Stamp } from '../data/stamps'
+import { ListenButton } from './ListenButton'
 import { StampCard } from './StampCard'
 import { asset } from '../lib/asset'
 import { openStamp } from '../lib/opener'
@@ -89,7 +91,8 @@ function Heading({ c, n }: { c: EditorialCollection; n: number }) {
 
 function Threads({ c }: { c: EditorialCollection }) {
   const list = c.threads.filter((t) => stampById.has(t.from) && stampById.has(t.to))
-  if (!list.length) return null
+  const songs = musicTracks.filter((t) => t.collectionNote && c.stampIds.includes(t.stampId) && stampById.has(t.stampId))
+  if (!list.length && !songs.length) return null
   return (
     <div className="mt-10 border-t border-dashed border-ink/20 pt-5">
       <p className="catalog mb-3">Explore further</p>
@@ -112,6 +115,17 @@ function Threads({ c }: { c: EditorialCollection }) {
             </li>
           )
         })}
+        {songs.map((t) => (
+          <li key={t.id} className="flex items-start gap-3 text-[15px] leading-snug">
+            <span className="mt-0.5 flex shrink-0" aria-hidden>
+              <Thumb s={stampById.get(t.stampId)!} />
+            </span>
+            <span className="min-w-0">
+              <span className="hand text-ink-soft">{t.collectionNote}</span>{' '}
+              <ListenButton track={t} className="text-oxblood" />
+            </span>
+          </li>
+        ))}
       </ul>
     </div>
   )
