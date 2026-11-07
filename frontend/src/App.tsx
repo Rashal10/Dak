@@ -6,6 +6,7 @@ import { Explorer } from './components/Explorer'
 import { Collections } from './components/Collections'
 import { StampDetail } from './components/StampDetail'
 import { Footer } from './components/Footer'
+import { MusicPlayer } from './components/MusicPlayer'
 import { Gateway } from './components/Gateway'
 import { ErrorBoundary } from './components/ErrorBoundary'
 import { ToastProvider } from './components/Toast'
@@ -76,6 +77,9 @@ function Shell() {
           <Collections />
         </main>
         <Footer />
+      </ErrorBoundary>
+      <ErrorBoundary fallback={null}>
+        <MusicPlayer compact={!!stamp} />
       </ErrorBoundary>
       <AnimatePresence>
         {stamp && (
