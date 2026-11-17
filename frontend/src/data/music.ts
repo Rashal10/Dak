@@ -26,13 +26,13 @@ export const musicTracks: MusicTrack[] = [
     painting: 'assets/ragamala/shankara.webp',
     paintingWidth: 520,
     paintingHeight: 633,
-    paintingCredit: 'Datia , Madhya Pradesh, c. 1650. Los Angeles County Museum of Art.',
+    paintingCredit: 'Datia, Madhya Pradesh, c. 1650. Los Angeles County Museum of Art.',
     stampId: 'ravi-shankar-2016',
   },
   {
     id: 'i-wanted-to-leave',
     title: 'I Wanted to Leave',
-    detail: 'Sitar version · SYML & Rishab Rikhiram Sharma',
+    detail: 'SYML & Rishab Rikhiram Sharma',
     audioSrc: 'audio/i-wanted-to-leave.mp3',
     raga: 'Todi Ragini',
     ragaHindi: 'तोड़ी रागिनी',
@@ -46,7 +46,7 @@ export const musicTracks: MusicTrack[] = [
   {
     id: 'tumhi-dekho-naa',
     title: 'Tumhi Dekho Naa',
-    detail: 'Sitar lofi · Rishab Rikhiram Sharma & Shankar-Ehsaan-Loy',
+    detail: 'Rishab Rikhiram Sharma & Shankar-Ehsaan-Loy',
     audioSrc: 'audio/tumhi-dekho-naa.mp3',
     raga: 'Radha and Krishna',
     ragaHindi: 'राधा कृष्ण',
@@ -103,7 +103,7 @@ export const musicTracks: MusicTrack[] = [
   {
     id: 'mera-satguru-pyaara',
     title: 'Mera Satguru Pyaara',
-    detail: 'Live in Chandigarh · Rishab Rikhiram Sharma',
+    detail: 'Rishab Rikhiram Sharma',
     audioSrc: 'audio/mera-satguru-pyaara.mp3',
     raga: 'Guru Nanak',
     ragaHindi: 'गुरु नानक',
