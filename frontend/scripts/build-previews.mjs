@@ -141,9 +141,7 @@ function previewPage({ s, folder, title, description }) {
     <meta property="og:image:height" content="${HEIGHT}" />
     <meta property="og:image:alt" content="${esc(s.image.alt)}" />
     <meta name="twitter:card" content="summary_large_image" />
-    <script>
-      location.replace('../' + (/^#\\//.test(location.hash) ? location.hash : '${fallback}'));
-    </script>
+    <script src="../share-redirect.js" data-fallback="${fallback}"></script>
   </head>
   <body style="background: #e9d4a0">
     <a href="../${fallback}">Open this stamp on DAK</a>
