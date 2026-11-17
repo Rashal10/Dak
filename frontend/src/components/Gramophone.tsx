@@ -104,7 +104,7 @@ function SurRing({ playing, spectrum, track }: { playing: boolean; spectrum: () 
 
 export function Gramophone({ track, playing, progress, spectrum }: { track: MusicTrack; playing: boolean; progress: number; spectrum: () => Uint8Array | null }) {
   const id = useId()
-  const armAngle = playing ? 13 + Math.min(1, progress) * 21 : -6
+  const armAngle = playing ? -6 - Math.min(1, progress) * 18 : 8
 
   return (
     <div className="raga-stage" data-playing={playing} onContextMenu={(event) => event.preventDefault()}>
@@ -174,13 +174,13 @@ export function Gramophone({ track, playing, progress, spectrum }: { track: Musi
           </g>
         </g>
         <g className="raga-arm" style={{ transform: `rotate(${armAngle}deg)` }}>
-          <path d="M296 212C272 206 244 186 214 152" fill="none" stroke="#3b230c" strokeWidth="9" strokeLinecap="round" />
-          <path d="M296 212C272 206 244 186 214 152" fill="none" stroke={`url(#${id}-brass)`} strokeWidth="6" strokeLinecap="round" />
-          <g transform="translate(212 150) rotate(-40)">
-            <circle r="13" fill={`url(#${id}-brass)`} stroke="#5a431a" />
-            <circle r="8" fill="#f4e7c3" stroke="#a48741" />
+          <path d="M296 212C292 172 262 128 221 102" fill="none" stroke="#3b230c" strokeWidth="9" strokeLinecap="round" />
+          <path d="M296 212C292 172 262 128 221 102" fill="none" stroke={`url(#${id}-brass)`} strokeWidth="6" strokeLinecap="round" />
+          <g transform="translate(217 99) rotate(-30)">
+            <circle r="12" fill={`url(#${id}-brass)`} stroke="#5a431a" />
+            <circle r="7.5" fill="#f4e7c3" stroke="#a48741" />
             <circle r="2.5" fill="#6d5420" />
-            <path d="M-3 12 0 24 3 12z" fill="#2f1c16" />
+            <path d="M-2.5 10 0 12.8 2.5 10z" fill="#2f1c16" />
           </g>
         </g>
         <circle cx="296" cy="212" r="13" fill={`url(#${id}-brass)`} stroke="#5a431a" />
